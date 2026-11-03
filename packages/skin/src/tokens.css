@@ -1,0 +1,58 @@
+/* Palette is independent of material and day/night. Art is never recolored. */
+:root{
+ --ritual-hue:151;--ritual-saturation:31%;--ritual-accent-light:#236c53;--ritual-accent-dark:#9de3b9;
+ --ritual-sidebar-width:200px;--ritual-round:16px;
+}
+:root[data-ritual-palette="jade"]{--ritual-hue:151;--ritual-saturation:37%;--ritual-accent-light:#236c53;--ritual-accent-dark:#9de3b9}
+:root[data-ritual-palette="celadon"]{--ritual-hue:164;--ritual-saturation:19%;--ritual-accent-light:#3c7063;--ritual-accent-dark:#b5d8cd}
+:root[data-ritual-palette="pine"]{--ritual-hue:138;--ritual-saturation:22%;--ritual-accent-light:#416c50;--ritual-accent-dark:#accdb5}
+:root[data-ritual-palette="teal"]{--ritual-hue:179;--ritual-saturation:40%;--ritual-accent-light:#226f70;--ritual-accent-dark:#91d8d7}
+:root[data-ritual-palette="mist"]{--ritual-hue:194;--ritual-saturation:25%;--ritual-accent-light:#3a697a;--ritual-accent-dark:#accfda}
+:root[data-ritual-palette="frost"]{--ritual-hue:185;--ritual-saturation:10%;--ritual-accent-light:#526e70;--ritual-accent-dark:#c1d2d3}
+:root[data-ritual-tone="light"]{
+ color-scheme:light;--ink:hsl(var(--ritual-hue) 27% 20%);--muted:hsl(var(--ritual-hue) 15% 38%);
+ --accent:var(--ritual-accent-light);--gold:hsl(var(--ritual-hue) 33% 33%);
+ --surface-rgb:255 255 252;--canvas:hsl(var(--ritual-hue) 27% 96%);--native-surface:hsl(var(--ritual-hue) var(--ritual-saturation) 91%);
+ --tinted-surface:hsl(var(--ritual-hue) var(--ritual-saturation) 79% / .73);--solid-surface:hsl(var(--ritual-hue) var(--ritual-saturation) 88% / .97);
+ --surface-soft:hsl(var(--ritual-hue) var(--ritual-saturation) 84% / .36);--surface-deep:hsl(var(--ritual-hue) var(--ritual-saturation) 73% / .48);
+ --paper:hsl(var(--ritual-hue) 27% 96% / .72);--paper-focus:hsl(var(--ritual-hue) 27% 97% / .97);
+ --code:hsl(var(--ritual-hue) 30% 92% / .95);--rim:hsl(var(--ritual-hue) 50% 99% / .73);--rim-top:#ffffffd9;
+ --line:hsl(var(--ritual-hue) 24% 40% / .26);--shadow:rgb(10 38 28 / .18);--active-fill:hsl(var(--ritual-hue) var(--ritual-saturation) 66% / .53);
+ --glass:var(--surface-soft);--glass-strong:var(--tinted-surface);--gold-edge:var(--line);--glass-shadow:var(--shadow);--glow:#e6f7e9;
+}
+:root[data-ritual-tone="dark"]{
+ color-scheme:dark;--ink:hsl(var(--ritual-hue) 29% 94%);--muted:hsl(var(--ritual-hue) 17% 74%);
+ --accent:var(--ritual-accent-dark);--gold:hsl(var(--ritual-hue) 30% 76%);
+ --surface-rgb:18 28 25;--canvas:hsl(var(--ritual-hue) 22% 10%);--native-surface:hsl(var(--ritual-hue) var(--ritual-saturation) 15%);
+ --tinted-surface:hsl(var(--ritual-hue) var(--ritual-saturation) 20% / .79);--solid-surface:hsl(var(--ritual-hue) var(--ritual-saturation) 15% / .97);
+ --surface-soft:hsl(var(--ritual-hue) var(--ritual-saturation) 19% / .40);--surface-deep:hsl(var(--ritual-hue) var(--ritual-saturation) 22% / .72);
+ --paper:hsl(var(--ritual-hue) 25% 10% / .74);--paper-focus:hsl(var(--ritual-hue) 25% 10% / .97);
+ --code:hsl(var(--ritual-hue) 28% 13% / .96);--rim:hsl(var(--ritual-hue) 38% 83% / .37);--rim-top:#f2fff16b;
+ --line:hsl(var(--ritual-hue) 25% 78% / .25);--shadow:rgb(0 13 12 / .35);--active-fill:hsl(var(--ritual-hue) var(--ritual-saturation) 41% / .58);
+ --glass:var(--surface-soft);--glass-strong:var(--tinted-surface);--gold-edge:var(--line);--glass-shadow:var(--shadow);--glow:#72a38a;
+}
+@media(max-width:1050px){:root{--ritual-sidebar-width:170px}}
+@media(max-width:800px){:root{--ritual-sidebar-width:0px}}
+
+/* Neutral color family, still using each material's optics and texture. */
+:root[data-ritual-palette="mono"]{--ritual-hue:210;--ritual-saturation:0%;--ritual-accent-light:#49515b;--ritual-accent-dark:#d9dde2}
+:root[data-ritual-palette="mono"][data-ritual-tone="light"]{
+ --ink:#25292f;--muted:#555d66;--gold:#535d68;--surface-rgb:247 249 250;
+ --canvas:#f7f8f9;--native-surface:#f0f2f4;--tinted-surface:rgb(225 229 233 / .70);--solid-surface:rgb(235 238 241 / .97);
+ --surface-soft:rgb(239 242 245 / .40);--surface-deep:rgb(181 189 198 / .34);--paper:rgb(250 251 252 / .78);--paper-focus:rgb(250 251 252 / .97);
+ --code:rgb(237 240 243 / .96);--rim:rgb(255 255 255 / .76);--rim-top:#ffffffe0;--line:rgb(91 101 113 / .28);--shadow:rgb(25 32 41 / .18);--active-fill:rgb(128 139 151 / .27);--glow:#eef1f5;
+}
+:root[data-ritual-palette="mono"][data-ritual-tone="dark"]{
+ --ink:#e8ebef;--muted:#b8bfc8;--gold:#c5cbd3;--surface-rgb:24 27 30;
+ --canvas:#14171b;--native-surface:#20242a;--tinted-surface:rgb(34 39 45 / .79);--solid-surface:rgb(30 34 40 / .97);
+ --surface-soft:rgb(39 44 51 / .43);--surface-deep:rgb(28 33 40 / .73);--paper:rgb(20 24 29 / .80);--paper-focus:rgb(20 24 29 / .97);
+ --code:rgb(28 32 39 / .96);--rim:rgb(217 225 235 / .37);--rim-top:#f1f5fa70;--line:rgb(190 201 214 / .27);--shadow:rgb(6 9 14 / .42);--active-fill:rgb(147 159 175 / .27);--glow:#9da8b7;
+}
+/* Native material keeps its plain reading surfaces. */
+:root[data-ritual-palette="mono"][data-ritual-material="native"]{--paper:transparent;--paper-focus:transparent;--code:var(--native-surface)}
+
+:root[data-ritual-palette="forest"]{--ritual-hue:142;--ritual-saturation:30%;--ritual-accent-light:#2d6644;--ritual-accent-dark:#a4d5b4}
+:root[data-ritual-palette="ink"]{--ritual-hue:158;--ritual-saturation:31%;--ritual-accent-light:#245c4a;--ritual-accent-dark:#9ccdb9}
+:root[data-ritual-palette="moss"]{--ritual-hue:139;--ritual-saturation:17%;--ritual-accent-light:#4b6f56;--ritual-accent-dark:#b8d1bd}
+:root[data-ritual-palette="ink"][data-ritual-tone="dark"]{--tinted-surface:hsl(158 31% 14% / .82);--solid-surface:hsl(158 28% 11% / .97);--surface-deep:hsl(158 31% 13% / .76);--native-surface:hsl(158 25% 12%)}
+:root[data-ritual-palette="forest"][data-ritual-tone="dark"]{--tinted-surface:hsl(142 30% 17% / .80);--solid-surface:hsl(142 25% 13% / .97)}

@@ -1,0 +1,245 @@
+{
+  "version": "0.1.0-native.1",
+  "files": [
+    {
+      "path": "Install.cmd",
+      "bytes": 68,
+      "sha256": "4766fbe25eded36940985486355eba12de9ad547b45742cb3676b25b88e27d04"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1065,
+      "sha256": "cd53dbe2de8bcabc43fe78dbea07e02d58bcde860c822a6a83eb96e6b06aae6e"
+    },
+    {
+      "path": "NOTICE.md",
+      "bytes": 1103,
+      "sha256": "17af0e10c5e929acf84bf076e7657a526b61e3c5670e0b3582a4b384c4eb18e3"
+    },
+    {
+      "path": "package.json",
+      "bytes": 197,
+      "sha256": "1c4d0186412df5383c1c09d81af86b43afd51076d875a50929553128494848c3"
+    },
+    {
+      "path": "packages/skin/assets/rain-lotus-day-five-toes-v2.png",
+      "bytes": 3209134,
+      "sha256": "24f0aa5be96b4a1f38929f113089d0cddc0b572ad498247cda91ce796de012f6"
+    },
+    {
+      "path": "packages/skin/assets/rain-lotus-night-five-toes-v2.png",
+      "bytes": 2935918,
+      "sha256": "9144aae10b326468efeaf949eecbc63d4d0be8932bd8cc0ede4b6c2a82ab7595"
+    },
+    {
+      "path": "packages/skin/assets/scene-bridge-day-v1.png",
+      "bytes": 3276036,
+      "sha256": "3ac210499212659e218bdddeb22e55f57261df5fc35b187af922d0d333e717b8"
+    },
+    {
+      "path": "packages/skin/assets/scene-bridge-night-v1.png",
+      "bytes": 2876666,
+      "sha256": "4d2e4ddeb01b2bd25606fb2e5e214cf0190060357977be88407bf5b1573bd38e"
+    },
+    {
+      "path": "packages/skin/assets/scene-ledger-day-v1.png",
+      "bytes": 2593081,
+      "sha256": "524520c79083b877ff7dd8d76f76fed65fc126412b8f45939f605c75f9fad30d"
+    },
+    {
+      "path": "packages/skin/assets/scene-ledger-night-v1.png",
+      "bytes": 2348637,
+      "sha256": "9beeb07889f2cefc609e59f25931736cae8d02066893efd8f3d9935bfe80e126"
+    },
+    {
+      "path": "packages/skin/assets/scene-lotus-dark-motion-standard-brow-v6.mp4",
+      "bytes": 41428724,
+      "sha256": "a9e6a982a48a1c26f15912ad1fa39938da58525d2af64df9d925b1761ec8ed9d"
+    },
+    {
+      "path": "packages/skin/assets/scene-lotus-dark-motion-ultra-brow-v6.mp4",
+      "bytes": 79827330,
+      "sha256": "22eea501f63e1c6dfa437abdcdf298c7b17de596ef6cae5635d20b0ded56a140"
+    },
+    {
+      "path": "packages/skin/assets/scene-lotus-light-motion-standard-detail-v4.mp4",
+      "bytes": 42639664,
+      "sha256": "3751bdd6cbe34dc8321ba0fd563ca553200346f8594db6c18d5887ad58befd66"
+    },
+    {
+      "path": "packages/skin/assets/scene-lotus-light-motion-ultra-detail-v4.mp4",
+      "bytes": 79221254,
+      "sha256": "0bfabdfcc6387fb505b85d8c9f336abe8f5f4aecd0f0421f1b510c93d9fcd3a7"
+    },
+    {
+      "path": "packages/skin/assets/scene-repose-dark-motion-standard-feedback-v5.mp4",
+      "bytes": 5262307,
+      "sha256": "03dccc0b1451eb7aeb263d4760758a9e09a4fc59a1c618e895fedcbd552abdeb"
+    },
+    {
+      "path": "packages/skin/assets/scene-repose-dark-motion-ultra-feedback-v5.mp4",
+      "bytes": 34869535,
+      "sha256": "8f70691c86ceaa2833222b700411a3bf062bff15e535a72d830916aef748dc67"
+    },
+    {
+      "path": "packages/skin/assets/scene-repose-day-v1.png",
+      "bytes": 2501917,
+      "sha256": "8e103963276a0198c1772f84e6866ab210855d54cebe1ebc8f4e91727032fa0b"
+    },
+    {
+      "path": "packages/skin/assets/scene-repose-light-motion-standard-feedback-v5.mp4",
+      "bytes": 5827897,
+      "sha256": "55965e3334d9089ccd68022cf7c5f76553c31269ff828e6bdc57c00d899a19e6"
+    },
+    {
+      "path": "packages/skin/assets/scene-repose-light-motion-ultra-feedback-v5.mp4",
+      "bytes": 38027264,
+      "sha256": "71573ad5b67340a6f6c76d5ad33ad39c7a9bab7b655554515c84eec7b44a8679"
+    },
+    {
+      "path": "packages/skin/assets/scene-repose-night-v1.png",
+      "bytes": 2202314,
+      "sha256": "c127bf6d9d7e50b7cfe3a421d6f6fe8f1fb186598d682a1af79a230c7b057b02"
+    },
+    {
+      "path": "packages/skin/assets/scene-window-dark-motion-standard-detail-v4.mp4",
+      "bytes": 6941386,
+      "sha256": "3562b1a4d2a31070bd51359a8092ac063c592f570b6bd36cbf1629b91f8299f0"
+    },
+    {
+      "path": "packages/skin/assets/scene-window-dark-motion-ultra-detail-v4.mp4",
+      "bytes": 41827137,
+      "sha256": "e731e4936d51ad0fe2609b5cbae0588f1e432ffb2403ee515305cc1760ee96d5"
+    },
+    {
+      "path": "packages/skin/assets/scene-window-day-v1.png",
+      "bytes": 2511705,
+      "sha256": "3a5033374da079128a3a0cfa186ba894574bd387190051d1c4ef8bb8030479e4"
+    },
+    {
+      "path": "packages/skin/assets/scene-window-light-motion-standard-detail-v4.mp4",
+      "bytes": 7201170,
+      "sha256": "8239d8e2377b492ec35321109d5c876eefc69d68240c68a0b331d03d170d8d3d"
+    },
+    {
+      "path": "packages/skin/assets/scene-window-light-motion-ultra-detail-v4.mp4",
+      "bytes": 42797380,
+      "sha256": "8b95c3dd5f5999e7d7305d9419247cd96d7b1ffe8846911d755b50a4a4d5d995"
+    },
+    {
+      "path": "packages/skin/assets/scene-window-night-v1.png",
+      "bytes": 2334177,
+      "sha256": "8a841e91a05282e8df5904b353b95188a2d06c1c62b2747816ec9a40a2ac1b25"
+    },
+    {
+      "path": "packages/skin/assets/tea-calligraphy-day-v1.png",
+      "bytes": 2773625,
+      "sha256": "151e189d234697c8111d3696e5ca8c18fe6eb1d6d616aee2a3f43ff066b91680"
+    },
+    {
+      "path": "packages/skin/assets/tea-calligraphy-night-v1.png",
+      "bytes": 2409762,
+      "sha256": "3d071717e5fe4efc074783afe168f887448f969d47b95acfb1bda59bd7c5b195"
+    },
+    {
+      "path": "packages/skin/cordis.patch.yml",
+      "bytes": 70,
+      "sha256": "0159389b21648a9aeeb14913263caa1dca943029cf3d4d65ce65a53aca3a1fc0"
+    },
+    {
+      "path": "packages/skin/docs/THIRD-PARTY.md",
+      "bytes": 768,
+      "sha256": "5392965b3448f1cfbfff786b68bef8789702ee113698f39ea9a44bd84abc1cad"
+    },
+    {
+      "path": "packages/skin/lib/client.js",
+      "bytes": 25763,
+      "sha256": "cae337348f9c6e5e66e16620704c40f32996706f45f8d72f0376af644cccf654"
+    },
+    {
+      "path": "packages/skin/lib/index.js",
+      "bytes": 1651,
+      "sha256": "871797d58d6170741ef81b25424ea681ce02d34d68a7deb631fc4fa62029fff5"
+    },
+    {
+      "path": "packages/skin/lib/media.json",
+      "bytes": 935,
+      "sha256": "1217a12553826de1fe62f347dccd54ab66b23d9785c16930db43dc66661e55f6"
+    },
+    {
+      "path": "packages/skin/licenses/dsh-liquid-glass-MIT.txt",
+      "bytes": 1107,
+      "sha256": "3cb758b92b71900bd24ca63edb799c3cc1a4f65463a1e73d95a0d26e66e93f8d"
+    },
+    {
+      "path": "packages/skin/native-client.js",
+      "bytes": 3444,
+      "sha256": "3d156292abe38bea27ffa12a64e5baa9a81a5af26bdd0c7ab33bec1254365276"
+    },
+    {
+      "path": "packages/skin/native.css",
+      "bytes": 2126,
+      "sha256": "9094145f044167c8165e174be312701e1dd01b6642f54e5d8088e1721d30a3b0"
+    },
+    {
+      "path": "packages/skin/package.json",
+      "bytes": 390,
+      "sha256": "d2f9033bb370bf818563b7210e5dc6f388e313cb35a27887d29bc7f4e957811a"
+    },
+    {
+      "path": "packages/skin/src/loader.js",
+      "bytes": 4764,
+      "sha256": "0a4826af0778add85708af8e84c661d336f04067c8c0ccee852433bb8fb521aa"
+    },
+    {
+      "path": "packages/skin/src/materials.css",
+      "bytes": 3639,
+      "sha256": "7ec8be5757a26db9b219225f952fdcdd6333e296950a416b4571ccef2d14dc74"
+    },
+    {
+      "path": "packages/skin/src/motion.js",
+      "bytes": 2609,
+      "sha256": "54bc2e785513f45a8e5f18be11493d6893c7f9b29914022de09475c066ebe8f0"
+    },
+    {
+      "path": "packages/skin/src/scenes.js",
+      "bytes": 3170,
+      "sha256": "0ebc5d1216bb86ae57dcc8f224adb3292e2d12af80837415e8c476ab26d63537"
+    },
+    {
+      "path": "packages/skin/src/tokens.css",
+      "bytes": 5769,
+      "sha256": "2438bf8988d867616ebff7d625fd6c35ae2ad223930b8902e5bf6691df993282"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3025,
+      "sha256": "310748f09a6503786fe7fc032fee300cb89636c0f15a4cbd706c93bfbb6181dd"
+    },
+    {
+      "path": "Rollback.cmd",
+      "bytes": 69,
+      "sha256": "fdd5b233af084ea8f0e1ddd2335a7c079ec1f8827c33c9d1e4b8e27b146676aa"
+    },
+    {
+      "path": "test/native.test.mjs",
+      "bytes": 3201,
+      "sha256": "35b041170f7d77bf363ae44f672e56d9628f24f3786f3f6de1b9d8ae9eb8cd7a"
+    },
+    {
+      "path": "tools/build.mjs",
+      "bytes": 2132,
+      "sha256": "9884f3a219e8bff39fda44baa349e83e539855f528dfd71daa045c5569ab9221"
+    },
+    {
+      "path": "tools/manage.mjs",
+      "bytes": 5712,
+      "sha256": "827307fd75ed082291c5d1b55be0e603ee32b15ac6bb645dccdddfdecf5df6a2"
+    },
+    {
+      "path": "Uninstall.cmd",
+      "bytes": 70,
+      "sha256": "c75c17fea51f8af6fd863dcb68c989356beb55c128899e6fa610532142768994"
+    }
+  ]
+}

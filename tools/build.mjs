@@ -1,0 +1,13 @@
+import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';import {createHash} from 'node:crypto';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),skin=path.join(root,'packages/skin');
+const read=f=>fs.readFileSync(path.join(skin,f),'utf8');
+const strip=s=>s.replace(/^import .*?;\r?\n/gm,'').replace(/^export /gm,'');
+const scenes=read('src/scenes.js').replace(/new URL\((["'])(\.\.\/assets\/[^"']+)\1,import\.meta\.url\)\.href/g,(_,q,p)=>'new URL('+JSON.stringify('/si-rain-jade/'+path.basename(p))+',location.origin).href');
+if(scenes.includes('import.meta.url'))throw Error('unresolved scene URL');
+let loader=read('src/loader.js');loader=loader.replace("const KEY='endfield-ritual:preview:v1'","const KEY='si-rain-jade:native:v1'");
+const css=read('src/tokens.css')+'\n'+read('src/materials.css')+'\n'+read('native.css');
+const client="window.__ModuleLoader__.load({id:'dsh-si-rain-jade',factory:function(require){const exports={};\nconst SI_CSS="+JSON.stringify(css)+';\n'+[scenes,read('src/motion.js'),loader,read('native-client.js')].map(strip).join('\n')+'\nObject.assign(exports,{apply});return exports;}});\n';
+fs.mkdirSync(path.join(skin,'lib'),{recursive:true});fs.writeFileSync(path.join(skin,'lib/client.js'),client);
+const media=fs.readdirSync(path.join(skin,'assets')).filter(f=>/\.(png|mp4)$/.test(f));fs.writeFileSync(path.join(skin,'lib/media.json'),JSON.stringify(media));
+const files=[];function walk(dir,rel=''){for(const e of fs.readdirSync(dir,{withFileTypes:true})){if(['dist','.git'].includes(e.name))continue;const p=rel?rel+'/'+e.name:e.name;if(e.isSymbolicLink())throw Error('symlink');if(e.isDirectory())walk(path.join(dir,e.name),p);else if(p!=='release-manifest.json'){const data=fs.readFileSync(path.join(dir,e.name));files.push({path:p,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')});}}}walk(root);
+fs.writeFileSync(path.join(root,'release-manifest.json'),JSON.stringify({version:'0.1.0-native.1',files},null,2));console.log(JSON.stringify({files:files.length,media:media.length,clientBytes:client.length}));
