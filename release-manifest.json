@@ -1,10 +1,10 @@
 {
-  "version": "0.1.0-native.5",
+  "version": "0.1.0-native.6",
   "files": [
     {
       "path": "CHANGELOG.md",
-      "bytes": 1176,
-      "sha256": "cc3b6f9d3002f07b1e03adfc080e7e532daab5ebf7524a6ff4f31ed0ffd0a21e"
+      "bytes": 1564,
+      "sha256": "505a595730f3053e7072986d5d139cc3c9d9754e5d84aaaf037df5c5821ac4ef"
     },
     {
       "path": "Install.cmd",
@@ -18,13 +18,13 @@
     },
     {
       "path": "NOTICE.md",
-      "bytes": 981,
-      "sha256": "9463bfb2d9dc4cc2fab2bf7dcbb9796d3ca936d78daaa96b1bce45bb7698f32f"
+      "bytes": 973,
+      "sha256": "988faed2cfe971c6f239f5e503ce6409e71c7fc27935a01b0e8936941aecf58d"
     },
     {
       "path": "package.json",
       "bytes": 198,
-      "sha256": "6ea3b7626320c55e7f2a180163f5684175d33a506ed3c66ba78d247257ef33ed"
+      "sha256": "00d8e723113af5f17fcf6039458bb0befa07d194f573581787038cc63afb8804"
     },
     {
       "path": "packages/skin/assets/rain-lotus-day-five-toes-v2.png",
@@ -167,14 +167,19 @@
       "sha256": "0159389b21648a9aeeb14913263caa1dca943029cf3d4d65ce65a53aca3a1fc0"
     },
     {
+      "path": "packages/skin/docs/PROVENANCE.md",
+      "bytes": 974,
+      "sha256": "2ee769e1033f5eb5de7fcbd77211ade980d7b4e3ce8617560fa18f8d8021ef52"
+    },
+    {
       "path": "packages/skin/docs/THIRD-PARTY.md",
       "bytes": 768,
       "sha256": "5392965b3448f1cfbfff786b68bef8789702ee113698f39ea9a44bd84abc1cad"
     },
     {
       "path": "packages/skin/lib/client.js",
-      "bytes": 48850,
-      "sha256": "5fcac56dcfddc68d0157d881454f2951e4ed83a7df8265f6f957b2c18ce51b67"
+      "bytes": 55552,
+      "sha256": "b919c17952fac0c746d8cd4a38b7bb6090193476137f943fe7cf9b2d2aa63f5f"
     },
     {
       "path": "packages/skin/lib/index.js",
@@ -193,8 +198,8 @@
     },
     {
       "path": "packages/skin/native-client.js",
-      "bytes": 15067,
-      "sha256": "0bcee1527664ec5652cc707ccb3a29531f33160b4277a5fb44797a5070fb633c"
+      "bytes": 15093,
+      "sha256": "7b1694a844c87d884b622f54c0e248880fd8314226ecf02edfaacdea4d7dce83"
     },
     {
       "path": "packages/skin/native.css",
@@ -204,7 +209,7 @@
     {
       "path": "packages/skin/package.json",
       "bytes": 391,
-      "sha256": "8e15a52f910112d1a76712df52f04107467b9c99ad3d83dad002c39da73ec384"
+      "sha256": "40492a624861c93ff51447a4d746cdfb940ebd099310b3e7594f824f20a16c0d"
     },
     {
       "path": "packages/skin/src/loader.js",
@@ -222,6 +227,11 @@
       "sha256": "abdf0232045ff788294fad913ca29f91393fda4684d7be4b5ecdd9919d6036b6"
     },
     {
+      "path": "packages/skin/src/pinned-entry.js",
+      "bytes": 6703,
+      "sha256": "13e59846ec9714f43202d54a3cc402e88a4a52bd62f4657b374a421f33f239ea"
+    },
+    {
       "path": "packages/skin/src/scenes.js",
       "bytes": 3987,
       "sha256": "e5f2cb96400b5bf452225e49dfa20dcc94fa99b452a41de4e6daf35e08209bb0"
@@ -233,8 +243,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 2670,
-      "sha256": "a1a3e89a2876b53f71383630c79fc007e9a602fae796a7fb0719d5d3e6a57032"
+      "bytes": 3704,
+      "sha256": "083e21735d8b34cf64ec3f3ae846cfc92c57e26a644ab9e6c862297f7091d877"
     },
     {
       "path": "Rollback.cmd",
@@ -257,14 +267,19 @@
       "sha256": "9cd62ae0e703a8980730373ec6aa5c70d4b1411a24a230ee7515d6f8c02f2e72"
     },
     {
+      "path": "test/pinned-entry.test.mjs",
+      "bytes": 2037,
+      "sha256": "6a334016598619a32b087a9a06591f37012d530bcc9bd06639944d174a74b144"
+    },
+    {
       "path": "test/upgrade.test.mjs",
       "bytes": 5497,
       "sha256": "2cd1859814316ac58866b470c53831668742e0ac3a0d774e1d5f80d19d2644bb"
     },
     {
       "path": "tools/build.mjs",
-      "bytes": 2234,
-      "sha256": "14817c9a34f9ec344f7d01df47e83d2da2854c266be230aeb6938fa2fb73c169"
+      "bytes": 2262,
+      "sha256": "7646f55ece2b75fd393b0c3a547a2d801da634624ba07a824bfe55b0b51cc144"
     },
     {
       "path": "tools/manage.mjs",

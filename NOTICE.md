@@ -1,7 +1,7 @@
-# Private native test candidate
+# 来源与权利说明
 
-Code Copyright 2026 KshineKX, MIT. Upstream glass-style reference and its MIT notice are retained under packages/skin/docs/THIRD-PARTY.md and licenses. Code licensing does not cover character artwork. This repository and media package remain private for the owner's download acceptance; public redistribution rights of the artwork have not been independently verified.
+代码 Copyright 2026 KshineKX，MIT。液态玻璃参考的上游MIT署名和全文保留在packages/skin/docs/THIRD-PARTY.md及licenses目录。固定入口使用DSH官方会话/工作区导航服务；不随包复制官方DSH运行时。
 
-Version native.5 preserves white-background compatibility, installer and all 27 media. The third reading mode directly shows clean artwork at its original geometry, with only three toolbar controls and a direct Escape return. No user sessions, credentials, temporary host entry, generation receipts, rejected image v2 or archival upscaled master are included.
+本项目为《明日方舟：终末地》角色祀的非官方同人皮肤，与游戏权利方无隶属或背书关系。角色、名称、商标和原始设定等权利归其相应权利人；代码MIT不授予这些第三方权利。随包场景为本项目制作的AI辅助同人图像与动态素材，公开不等于获得第三方独占授权，不宣称官方素材或原创角色。详见packages/skin/docs/PROVENANCE.md。
 
-Independent official DSH Web validation is distinct from the user's actual desktop profile. No model requests were sent. Full Windows caption color coverage and actual desktop background suspension remain unverified.
+native.5已由作者下载试装验收；native.6增加固定既有会话入口，保留27媒体与三键纯画面。没有个人会话记录、作者会话ID、凭据、宿主入口URL或配置备份随包。Windows其他版本和全部标题栏配色未穷尽验证。
