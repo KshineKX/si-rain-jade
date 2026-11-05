@@ -3,8 +3,8 @@ import {createMotion} from './motion.js';
 // Independent visual prototype. Native installation/profile changes are separate.
 const ID='endfield-ritual-skin';
 const KEY='endfield-ritual:preview:v1';
-const ENUMS={tone:['light','dark'],reading:['admire','focus'],palette:["jade","celadon","pine","teal","mist","frost","mono","forest","ink","moss"],material:['native','liquid','frost','jade'],motion:['static','dynamic'],quality:['standard','ultra'],scene:Object.keys(SCENES)};
-const DEFAULTS={tone:'dark',reading:'admire',palette:'jade',material:'liquid',motion:'dynamic',quality:'ultra',scene:'lotus'};
+const ENUMS={tone:['light','dark'],reading:['normal','focus','admire'],palette:["jade","celadon","pine","teal","mist","frost","mono","forest","ink","moss"],material:['native','liquid','frost','jade'],motion:['static','dynamic'],quality:['standard','ultra'],scene:Object.keys(SCENES)};
+const DEFAULTS={tone:'dark',reading:'normal',palette:'jade',material:'liquid',motion:'dynamic',quality:'ultra',scene:'lotus'};
 export function sanitize(value={}){const safe={...DEFAULTS};for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(value?.[key]))safe[key]=value[key];return safe}
 export function mount(root=document.documentElement,{storage=localStorage}={}){
  const current=document.getElementById(ID);if(current)return current.controller;
@@ -12,6 +12,8 @@ export function mount(root=document.documentElement,{storage=localStorage}={}){
  const before=ownAttrs.map(name=>[name,root.getAttribute(name)]);
  let stored={};try{stored=JSON.parse(storage.getItem(KEY)||'{}')||{}}catch{}
  const query=new URLSearchParams(location.search),settings=sanitize(stored);
+ // Old admire meant normal. Gallery is temporary: a fresh mount always restores the conversation.
+ if(settings.reading==='admire')settings.reading='normal';
  if(stored.motionSchema!==1)settings.motion='dynamic';if(!(stored.schema>=2))settings.tone='dark';settings.schema=2;
  if(['blue','slate'].includes(stored.palette))settings.palette='mist';
  for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(query.get(key)))settings[key]=query.get(key);
@@ -26,7 +28,7 @@ export function mount(root=document.documentElement,{storage=localStorage}={}){
  function syncScene(){
   const revision=++ticket;
   motion.sync();
-  if(settings.material==='native'){syncCaption(settings.tone);artwork.removeAttribute('src');layer.style.removeProperty('--ritual-scene-image');layer.dataset.sceneTone='native';delete layer.dataset.scenePending;return}
+  if(settings.material==='native'&&settings.reading!=='admire'){syncCaption(settings.tone);artwork.removeAttribute('src');layer.style.removeProperty('--ritual-scene-image');layer.dataset.sceneTone='native';delete layer.dataset.scenePending;return}
   const tone=settings.tone,url=resolveScene(settings.scene).images[tone];
   if(artwork.src===url){syncCaption(tone);delete layer.dataset.scenePending;return}
   if(!artwork.getAttribute('src')){commitScene(tone,url);return}
@@ -40,7 +42,7 @@ export function mount(root=document.documentElement,{storage=localStorage}={}){
   for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(next[key]))settings[key]=next[key];
   root.dataset.ritualTone=settings.tone;root.dataset.ritualReading=settings.reading;root.dataset.ritualPalette=settings.palette;root.dataset.ritualMaterial=settings.material;
 
-  syncScene();try{storage.setItem(KEY,JSON.stringify({...settings,motionSchema:1,schema:2}))}catch{}
+  syncScene();try{storage.setItem(KEY,JSON.stringify({...settings,motionSchema:1,schema:2,readingSchema:1}))}catch{}
   document.dispatchEvent(new CustomEvent('ritual:change',{detail:{...settings}}));
  }
  const controller={update,get settings(){return {...settings}},destroy(){disposed=true;ticket++;motion.destroy();observer.disconnect();layer.remove();for(const[name,value]of before)value===null?root.removeAttribute(name):root.setAttribute(name,value)}};
