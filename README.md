@@ -4,6 +4,24 @@
 
 [下载完整安装包](https://github.com/KshineKX/si-rain-jade/releases/download/v0.1.0-native.6/Si-Rain-Jade-0.1.0-native.6.zip) · [发行说明与校验](https://github.com/KshineKX/si-rain-jade/releases/tag/v0.1.0-native.6)
 
+## 界面预览
+
+DSH 实际界面（单列表视图）：左上固定祀会话入口，右上保留深浅、书页、设置三个快捷键。
+
+![祀·雨荷青玉 DSH 界面预览](docs/previews/interface.png)
+
+## 场景预览
+
+### 窗榻听雨
+
+![窗榻听雨场景](docs/previews/window-rain.png)
+
+### 雪庭温泉
+
+雪日单景；深浅切换改变界面配色，温泉素材保持同一雪日场景。
+
+![雪庭温泉场景](docs/previews/snow-onsen.png)
+
 ## 使用
 
 工具栏只有深浅、书页、设置三个键。书页依次切换：默认→专注→观赏（纯画面）→默认。默认正常聊天；专注保留阅读衬底并暂停动态；观赏直接隐藏页面文字、输入、挂件和玻璃特效，背景沿用默认模式全窗cover和原有裁切，不重排、不偏移。
@@ -22,7 +40,7 @@
 
 ## 下载、安装与回退
 
-下载Release完整ZIP与SHA256SUMS.txt；Source code ZIP不含媒体。Windows、Node22.19或24+、DSH desktop0.2.1-rc.5格式profile。保存工作并完全退出DSH（含托盘）→解压→Install.cmd→自行启动。
+下载Release完整ZIP与SHA256SUMS.txt；Source code ZIP不含完整运行媒体。Windows、Node22.19或24+、DSH desktop0.2.1-rc.5格式profile。保存工作并完全退出DSH（含托盘）→解压→Install.cmd→自行启动。
 
 已有native.5或更早的本地安装时，只升级本插件并保留其他配置和旧目录。退出DSH后Rollback.cmd回到升级前版本。归属/备份冲突拒绝覆盖；升级状态下Uninstall.cmd要求先回退，新安装后的整文件卸载若有其他配置改动会保护性拒绝。
 
