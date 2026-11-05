@@ -64,8 +64,7 @@ html[data-si-native] [data-si-view-hidden],html[data-si-native] [data-si-view-hi
 /* Gallery keeps the same full-window artwork geometry as normal mode. */
 html[data-si-native][data-ritual-reading="admire"] #endfield-ritual-skin .ritual-art{display:block!important}
 html[data-si-native][data-ritual-reading="admire"] .ritual-reading-light{display:none!important}
-/* Retain the existing frame optics while its foreground text and controls are hidden. */
-html[data-si-native][data-ritual-reading="admire"][data-si-gallery-style="glass"] :is([data-si-surface="sidebar-column"],[data-si-surface="header"])::before{visibility:visible!important}
+/* The third reading mode directly shows the clean artwork. */
 html[data-si-native][data-ritual-reading="admire"][data-si-gallery-style="clean"] .ritual-edge-glass{display:none!important}
 #si-native-dock button[data-si-view-mode]{position:relative;padding-bottom:8px}
 .si-view-steps{position:absolute;bottom:2px;display:flex;gap:3px;pointer-events:none}

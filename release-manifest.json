@@ -1,10 +1,10 @@
 {
-  "version": "0.1.0-native.4",
+  "version": "0.1.0-native.5",
   "files": [
     {
       "path": "CHANGELOG.md",
-      "bytes": 840,
-      "sha256": "a3ec9552a7ccd2f92b8c83a0c5bc531f6388fbe9aecb50d6b1bc032247563c4f"
+      "bytes": 1176,
+      "sha256": "cc3b6f9d3002f07b1e03adfc080e7e532daab5ebf7524a6ff4f31ed0ffd0a21e"
     },
     {
       "path": "Install.cmd",
@@ -18,13 +18,13 @@
     },
     {
       "path": "NOTICE.md",
-      "bytes": 985,
-      "sha256": "689811cc434920c84a1da1b2a5fc62ef6a82a44a15b4ea2bc93ee8bf6c4d1c62"
+      "bytes": 981,
+      "sha256": "9463bfb2d9dc4cc2fab2bf7dcbb9796d3ca936d78daaa96b1bce45bb7698f32f"
     },
     {
       "path": "package.json",
       "bytes": 198,
-      "sha256": "ee12a9a5377c802b1870ba7c52130b1c73333b379c846269ce707dbf81ddaabc"
+      "sha256": "6ea3b7626320c55e7f2a180163f5684175d33a506ed3c66ba78d247257ef33ed"
     },
     {
       "path": "packages/skin/assets/rain-lotus-day-five-toes-v2.png",
@@ -173,8 +173,8 @@
     },
     {
       "path": "packages/skin/lib/client.js",
-      "bytes": 49626,
-      "sha256": "32c92d0e7b7d8ecf6cc966866d672cab1899b958deb452916c5d1c76f51eabce"
+      "bytes": 48850,
+      "sha256": "5fcac56dcfddc68d0157d881454f2951e4ed83a7df8265f6f957b2c18ce51b67"
     },
     {
       "path": "packages/skin/lib/index.js",
@@ -193,18 +193,18 @@
     },
     {
       "path": "packages/skin/native-client.js",
-      "bytes": 15620,
-      "sha256": "2a5b8f705087c4cd8819fba43d14eea20586cc901085afc429d19a2c872fb0ea"
+      "bytes": 15067,
+      "sha256": "0bcee1527664ec5652cc707ccb3a29531f33160b4277a5fb44797a5070fb633c"
     },
     {
       "path": "packages/skin/native.css",
-      "bytes": 12482,
-      "sha256": "9963438030ea31db179ca3ad335035a2470ed05254d7d27998c1f7fcc482932b"
+      "bytes": 12268,
+      "sha256": "af469d6bbf0b8bc5d8bf1958be37de1efba6a837716bbb2d96888557b42a1683"
     },
     {
       "path": "packages/skin/package.json",
       "bytes": 391,
-      "sha256": "5a7ea164f415b19529d40ee0a6be837ec77a9b1a3f68cd3ffb33acd3d4d64562"
+      "sha256": "8e15a52f910112d1a76712df52f04107467b9c99ad3d83dad002c39da73ec384"
     },
     {
       "path": "packages/skin/src/loader.js",
@@ -233,8 +233,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 2876,
-      "sha256": "b1336062a2b770b5edea89940e775186be536e5a7067e4bcaad47c35594a25a9"
+      "bytes": 2670,
+      "sha256": "a1a3e89a2876b53f71383630c79fc007e9a602fae796a7fb0719d5d3e6a57032"
     },
     {
       "path": "Rollback.cmd",
