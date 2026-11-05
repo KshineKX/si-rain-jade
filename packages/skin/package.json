@@ -1,6 +1,6 @@
 {
   "name": "dsh-si-rain-jade",
-  "version": "0.1.0-native.1",
+  "version": "0.1.0-native.2",
   "type": "module",
   "main": "lib/index.js",
   "exports": {

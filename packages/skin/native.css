@@ -1,19 +1,60 @@
-html[data-ritual-tone] { background:var(--canvas); color:var(--ink); }
-body:has(#endfield-ritual-skin){background:transparent!important;isolation:isolate}
-#app,#root{background:transparent}
+/* Style real rendered children, never a display:contents slot or every ancestor. */
+html[data-si-native]{background:var(--canvas);color:var(--ink)}
+html[data-si-native] body{background:transparent!important;isolation:isolate}
+[data-si-native] [data-si-surface="canvas"],[data-si-native] [data-si-surface="conversation"],[data-si-native] [data-si-surface="content"],[data-si-native] [data-si-surface="scroll"]{background:transparent!important;color:var(--ink)}
 #endfield-ritual-skin{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--canvas)}
-.ritual-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
-.ritual-motion{opacity:0}.ritual-motion[data-playing="true"]{opacity:1}
-.ritual-reading-light{position:absolute;inset:0;background:var(--paper);opacity:.32;pointer-events:none}
-[data-ritual-reading="focus"] .ritual-reading-light{opacity:1;background:var(--paper-focus)}
-[data-ritual-tone] [data-si-native-surface="1"]{background:transparent!important;color:var(--ink)}
-[data-ritual-tone] [data-slot="sidebar"]{background:var(--sidebar-fill,var(--surface-deep))!important;backdrop-filter:var(--sidebar-filter,blur(14px));color:var(--ink)}
-[data-ritual-tone] :is([data-conversation-region],[data-conversation-content],[data-conversation-scroll]){background:transparent!important;color:var(--ink)}
-[data-ritual-tone] :is([data-composer-card],[data-slot="conversation.composer.bar"]){background:var(--paper-focus)!important;color:var(--ink);border-color:var(--line)}
-[data-ritual-tone] [data-conversation-scroll] pre{background:var(--code);color:var(--ink)}
-#si-native-dock{position:fixed;right:16px;bottom:78px;z-index:1100;font:13px/1.6 system-ui;color:var(--ink)}
-#si-native-dock button{font:inherit;color:inherit;background:var(--paper-focus);border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer}
-#si-native-dock section{width:min(320px,80vw);max-height:65vh;overflow:auto;padding:14px;background:var(--paper-focus);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 30px #0005}
-#si-native-dock section[hidden]{display:none}#si-native-dock details{padding:6px 0;border-top:1px solid var(--line)}
-#si-native-dock button[aria-pressed="true"]{outline:2px solid var(--accent)}#si-native-dock summary{cursor:pointer}
-@media(max-width:700px){#si-native-dock{bottom:62px;right:8px}}
+#endfield-ritual-skin .ritual-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+#endfield-ritual-skin .ritual-motion{opacity:0;transition:opacity .18s}#endfield-ritual-skin .ritual-motion[data-playing="true"]{opacity:1}
+.ritual-edge-glass{position:absolute;inset:0;pointer-events:none;background:linear-gradient(130deg,var(--surface-soft),transparent 25%,transparent 75%,var(--surface-soft));backdrop-filter:blur(14px) saturate(1.2);mask-image:linear-gradient(90deg,#000,transparent 6%,transparent 94%,#000),linear-gradient(180deg,#000,transparent 8%,transparent 94%,#000);mask-composite:add}
+.ritual-reading-light{position:absolute;pointer-events:none;background:var(--paper);backdrop-filter:blur(3px);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 87%,transparent),linear-gradient(180deg,transparent,#000 24px,#000 calc(100% - 28px),transparent);mask-composite:intersect}
+[data-ritual-reading="focus"] .ritual-reading-light{background:var(--paper-focus);backdrop-filter:blur(16px)}
+html[data-si-native]:has([data-content-phase="hero"]) .ritual-reading-light{opacity:0}
+[data-si-native] [data-si-surface="sidebar-column"]{position:relative;isolation:isolate;background:transparent!important;border-color:transparent!important;overflow:visible}
+[data-si-native] [data-si-surface="sidebar-column"]::before{content:"";position:absolute;inset:0 -42px 0 0;z-index:-1;pointer-events:none;background:var(--sidebar-fill,var(--surface-deep));backdrop-filter:var(--sidebar-filter);mask-image:linear-gradient(90deg,#000 0%,#000 73%,#000b 85%,transparent 100%)}
+[data-si-native] [data-si-surface="sidebar"]{background:transparent!important;color:var(--ink)!important;border-right-color:transparent!important;box-shadow:none!important}
+[data-si-native] [data-si-surface="sidebar"] :is(button,a,[role="treeitem"]){color:var(--ink)!important}
+[data-si-native] [data-si-surface="sidebar"] [aria-selected="true"]{background:var(--active-fill)!important;border-radius:10px}
+[data-si-native] [data-si-surface="sidebar"] button[class$="_newSession"]{background:var(--surface-fill)!important;border-color:var(--line)!important;box-shadow:var(--surface-shadow);backdrop-filter:var(--surface-filter)}
+[data-si-native] [data-slot="sidebar.workspaces"] [class$="_fade"]{background:linear-gradient(transparent,var(--surface-deep))!important}
+[data-si-native] [data-si-surface="header"]{position:relative;isolation:isolate;background:transparent!important;color:var(--ink)!important;backdrop-filter:none!important;border-color:transparent!important;box-shadow:none}
+[data-si-native] [data-si-surface="header"] :is(button,a){color:var(--ink)!important}
+[data-si-native] [data-si-surface="composer"]{position:relative;isolation:isolate;background:var(--surface-fill)!important;color:var(--ink)!important;border:1px solid var(--line)!important;border-radius:22px!important;box-shadow:var(--surface-shadow)!important;backdrop-filter:var(--surface-filter)}
+[data-si-native] [data-si-surface="composer"]::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:var(--surface-sheen);z-index:-1}
+[data-si-native] [data-si-surface="composer"] :is(button,[data-composer-input]){color:var(--ink)!important}
+[data-si-native] [data-composer-input]{background:transparent!important;outline:none!important;box-shadow:none!important}
+[data-si-native] [data-composer-placeholder]{color:var(--muted)!important}
+[data-si-native] [data-slot^="conversation.hero."]{color:var(--ink)!important}
+[data-si-native] [data-slot^="conversation.hero."] button,[data-si-native] [data-content-phase="hero"] [class$="_titleGroup"]{color:var(--ink)!important;text-shadow:0 1px 9px var(--shadow)}
+[data-si-native] [data-si-surface="composer"] button[aria-label="添加文件或调用指令"]{background:var(--surface-soft)!important}
+[data-si-native] [data-si-surface="composer"] button[aria-label="发送消息"]{color:var(--canvas)!important;background:var(--accent)!important}
+[data-si-native] [data-conversation-scroll] :is(pre,code){color:var(--ink);background:var(--code)}
+[data-si-native] [data-conversation-scroll] :is(table,th,td){border-color:var(--line)}
+[data-si-native] [data-conversation-scroll] table{background:var(--code)}
+#si-native-dock{position:fixed;display:inline-flex;align-items:center;flex:none;gap:2px;padding:3px;margin:0 5px;z-index:900;color:var(--ink);border:1px solid var(--line);border-radius:13px;background:var(--surface-fill);backdrop-filter:var(--surface-filter);box-shadow:var(--surface-shadow);-webkit-app-region:no-drag}
+#si-native-dock[data-anchored="false"]{position:fixed;top:72px;right:20px;z-index:100}
+#si-native-dock button{display:grid;place-items:center;width:30px;height:30px;flex:none;border:0;border-radius:9px;padding:6px;background:transparent;color:var(--ink);cursor:pointer;-webkit-app-region:no-drag}
+#si-native-dock button:hover,#si-native-dock button[aria-pressed="true"]{background:var(--active-fill)}
+#si-native-dock button:focus-visible,#si-native-panel button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#si-native-dock svg{width:18px;height:18px;display:block}
+#si-native-panel{position:fixed;z-index:1400;width:min(346px,calc(100vw - 24px));max-height:calc(100vh - 100px);overflow:auto;padding:13px;color:var(--ink);background:var(--surface-fill);border:1px solid var(--line);border-radius:19px;box-shadow:var(--surface-shadow),0 18px 60px -18px #0009;backdrop-filter:blur(26px) saturate(1.15);font:13px/1.55 var(--dsh-font-family-text-default,system-ui);-webkit-app-region:no-drag}
+#si-native-panel[hidden]{display:none!important}.si-panel-title{font-size:15px;font-weight:600;padding:2px 5px 10px}
+#si-native-panel details+details{margin-top:3px}#si-native-panel summary{display:flex;align-items:center;gap:9px;padding:10px 8px;cursor:pointer;border-radius:11px;list-style:none}#si-native-panel summary::-webkit-details-marker{display:none}#si-native-panel summary:hover{background:var(--surface-soft)}
+.si-setting-icon{width:21px;height:21px;flex:none}.si-setting-icon svg{width:20px;height:20px}.si-chevron{margin-left:3px;font-size:22px;color:var(--muted)}#si-native-panel details[open] .si-chevron{transform:rotate(90deg)}#si-native-panel summary small{margin-left:auto;font-size:11px;color:var(--muted);max-width:135px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.si-setting-content{padding:4px 6px 9px}.si-choice-row+.si-choice-row{margin-top:12px}.si-choice-label{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}.si-choice-buttons{display:flex;flex-wrap:wrap;gap:5px}
+#si-native-panel .si-choice-buttons button{font:inherit;padding:6px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface-soft);color:var(--ink);cursor:pointer}#si-native-panel button[aria-pressed="true"]{background:var(--active-fill);box-shadow:inset 0 0 0 1px var(--accent)}#si-native-panel button:disabled{opacity:.4;cursor:default}
+.si-scene-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.si-scene-grid button{position:relative;padding:0;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--native-surface);color:var(--ink);cursor:pointer;text-align:left;font:inherit}.si-scene-grid img{display:block;width:100%;height:69px;object-fit:cover}.si-scene-grid span{display:block;padding:5px 7px;font-size:11px}
+html[data-si-native][data-ritual-material="native"] [data-si-surface="sidebar-column"]::before{inset:0;mask-image:none;background:var(--native-surface);backdrop-filter:none}
+html[data-si-native][data-ritual-material="native"] [data-si-surface="header"]{background:var(--native-surface)!important;backdrop-filter:none}
+html[data-si-native][data-ritual-material="native"] :is(#si-native-dock,#si-native-panel,[data-si-surface="composer"]){background:var(--native-surface)!important;backdrop-filter:none;box-shadow:none!important}
+@media(max-width:700px){#si-native-dock{margin:0 2px}#si-native-dock button{width:28px;height:28px}#si-native-panel{max-height:calc(100vh - 80px)}}
+@media(prefers-reduced-motion:reduce){#endfield-ritual-skin *{transition:none!important}}
+
+/* Windows preload observes these supported palette tokens to update caption/native buttons. */
+html[data-si-native][data-windows-titlebar] body{--dsw-specific-sidebar-fill:var(--native-surface);--dsw-alias-label-primary:var(--ink);--dsw-alias-label-secondary:var(--muted);--dsw-alias-interactive-bg-hover:var(--active-fill);--dsw-alias-state-business-primary:var(--accent)}
+[data-si-native] [data-si-surface="header"]::before{content:"";position:absolute;inset:0 0 -28px;z-index:-1;pointer-events:none;background:var(--surface-deep);backdrop-filter:blur(14px) saturate(1.15);mask-image:linear-gradient(180deg,#000 0%,#000 38%,#0009 72%,transparent 100%)}
+html[data-si-native][data-ritual-material="native"] [data-si-surface="header"]::before{inset:0;background:var(--native-surface);backdrop-filter:none;mask-image:none}
+#si-native-dock{margin:0;z-index:900}
+
+#si-native-panel{box-sizing:border-box}
+
+#si-native-panel .si-scene-note{font-size:12px;line-height:1.6;color:var(--muted);margin:10px 0 0;padding:8px;border:1px solid var(--line);border-radius:8px}#si-native-panel .si-scene-note[hidden]{display:none}

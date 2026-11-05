@@ -1,6 +1,11 @@
 {
-  "version": "0.1.0-native.1",
+  "version": "0.1.0-native.2",
   "files": [
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 467,
+      "sha256": "072d8b3c6463464a53b4d445ccf9c71ae2fef839f559fb5aee57ae014f439a95"
+    },
     {
       "path": "Install.cmd",
       "bytes": 68,
@@ -13,13 +18,13 @@
     },
     {
       "path": "NOTICE.md",
-      "bytes": 1103,
-      "sha256": "17af0e10c5e929acf84bf076e7657a526b61e3c5670e0b3582a4b384c4eb18e3"
+      "bytes": 957,
+      "sha256": "a8e2522516fd405ac34a95fb2cfac84f0a522721c92a0909085e50e770f3d768"
     },
     {
       "path": "package.json",
-      "bytes": 197,
-      "sha256": "1c4d0186412df5383c1c09d81af86b43afd51076d875a50929553128494848c3"
+      "bytes": 198,
+      "sha256": "871e07f4169af346dab3fafb9a12242e1f7c1a446cc0e2a9276f7cabf5e19062"
     },
     {
       "path": "packages/skin/assets/rain-lotus-day-five-toes-v2.png",
@@ -70,6 +75,21 @@
       "path": "packages/skin/assets/scene-lotus-light-motion-ultra-detail-v4.mp4",
       "bytes": 79221254,
       "sha256": "0bfabdfcc6387fb505b85d8c9f336abe8f5f4aecd0f0421f1b510c93d9fcd3a7"
+    },
+    {
+      "path": "packages/skin/assets/scene-onsen-light-motion-standard-v1.mp4",
+      "bytes": 5735118,
+      "sha256": "c07db437f01cfb1f8fc544155adf7dbc71756f21f540f1af32a743341008d395"
+    },
+    {
+      "path": "packages/skin/assets/scene-onsen-light-motion-ultra-v1.mp4",
+      "bytes": 37341902,
+      "sha256": "e90ff19ab4519809f07c044d6186564b752975a5777a0b4548ee6bc7f8e18ac1"
+    },
+    {
+      "path": "packages/skin/assets/scene-onsen-snow-day-v1.png",
+      "bytes": 2407411,
+      "sha256": "d68962be701efba46d365f6c5eafaa5c7357ec886348c0ae6bdc876fefd04941"
     },
     {
       "path": "packages/skin/assets/scene-repose-dark-motion-standard-feedback-v5.mp4",
@@ -153,8 +173,8 @@
     },
     {
       "path": "packages/skin/lib/client.js",
-      "bytes": 25763,
-      "sha256": "cae337348f9c6e5e66e16620704c40f32996706f45f8d72f0376af644cccf654"
+      "bytes": 41923,
+      "sha256": "9599c818920a8692fbae6141ca29c8b095f5da51228374d3b7f2a655c88e4a13"
     },
     {
       "path": "packages/skin/lib/index.js",
@@ -163,8 +183,8 @@
     },
     {
       "path": "packages/skin/lib/media.json",
-      "bytes": 935,
-      "sha256": "1217a12553826de1fe62f347dccd54ab66b23d9785c16930db43dc66661e55f6"
+      "bytes": 1048,
+      "sha256": "7bbe8490447fd8223d739bfc2ab83c096b2536dde57494e250bd0b839cdc389f"
     },
     {
       "path": "packages/skin/licenses/dsh-liquid-glass-MIT.txt",
@@ -173,23 +193,23 @@
     },
     {
       "path": "packages/skin/native-client.js",
-      "bytes": 3444,
-      "sha256": "3d156292abe38bea27ffa12a64e5baa9a81a5af26bdd0c7ab33bec1254365276"
+      "bytes": 10818,
+      "sha256": "21bf1ab682acd004cb6611c952b29ea157340c39ac7ea81b787e0912f5f11406"
     },
     {
       "path": "packages/skin/native.css",
-      "bytes": 2126,
-      "sha256": "9094145f044167c8165e174be312701e1dd01b6642f54e5d8088e1721d30a3b0"
+      "bytes": 9880,
+      "sha256": "6adb9a655f35afed20ac826538293c99d653b5f2d49decab7d936c7d383f4269"
     },
     {
       "path": "packages/skin/package.json",
-      "bytes": 390,
-      "sha256": "d2f9033bb370bf818563b7210e5dc6f388e313cb35a27887d29bc7f4e957811a"
+      "bytes": 391,
+      "sha256": "169a03183f144b561ab965137e325d3bb33388d85a253891c506338bd7ef4b08"
     },
     {
       "path": "packages/skin/src/loader.js",
-      "bytes": 4764,
-      "sha256": "0a4826af0778add85708af8e84c661d336f04067c8c0ccee852433bb8fb521aa"
+      "bytes": 4834,
+      "sha256": "5831ff764c23cb50b97d0e69f8bcf5b3604c6596345d3926a1f4fab1db5443b3"
     },
     {
       "path": "packages/skin/src/materials.css",
@@ -203,8 +223,8 @@
     },
     {
       "path": "packages/skin/src/scenes.js",
-      "bytes": 3170,
-      "sha256": "0ebc5d1216bb86ae57dcc8f224adb3292e2d12af80837415e8c476ab26d63537"
+      "bytes": 3987,
+      "sha256": "e5f2cb96400b5bf452225e49dfa20dcc94fa99b452a41de4e6daf35e08209bb0"
     },
     {
       "path": "packages/skin/src/tokens.css",
@@ -213,8 +233,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3025,
-      "sha256": "310748f09a6503786fe7fc032fee300cb89636c0f15a4cbd706c93bfbb6181dd"
+      "bytes": 3378,
+      "sha256": "3340f45fb1248ea723c674a4a8ba8e587b212c4d0d685942611c295906480802"
     },
     {
       "path": "Rollback.cmd",
@@ -222,19 +242,39 @@
       "sha256": "fdd5b233af084ea8f0e1ddd2335a7c079ec1f8827c33c9d1e4b8e27b146676aa"
     },
     {
+      "path": "test/installer-compat.test.mjs",
+      "bytes": 4336,
+      "sha256": "94982d29893954faa7d0d11cc31c65def7c624c1fdda2e90d86f6ca6d21cf24b"
+    },
+    {
       "path": "test/native.test.mjs",
       "bytes": 3201,
       "sha256": "35b041170f7d77bf363ae44f672e56d9628f24f3786f3f6de1b9d8ae9eb8cd7a"
     },
     {
+      "path": "test/onsen.test.mjs",
+      "bytes": 1306,
+      "sha256": "9cd62ae0e703a8980730373ec6aa5c70d4b1411a24a230ee7515d6f8c02f2e72"
+    },
+    {
+      "path": "test/upgrade.test.mjs",
+      "bytes": 5497,
+      "sha256": "2cd1859814316ac58866b470c53831668742e0ac3a0d774e1d5f80d19d2644bb"
+    },
+    {
       "path": "tools/build.mjs",
-      "bytes": 2132,
-      "sha256": "9884f3a219e8bff39fda44baa349e83e539855f528dfd71daa045c5569ab9221"
+      "bytes": 2234,
+      "sha256": "14817c9a34f9ec344f7d01df47e83d2da2854c266be230aeb6938fa2fb73c169"
     },
     {
       "path": "tools/manage.mjs",
-      "bytes": 5712,
-      "sha256": "827307fd75ed082291c5d1b55be0e603ee32b15ac6bb645dccdddfdecf5df6a2"
+      "bytes": 7430,
+      "sha256": "89bd5ef7c105cfe2c71d7051c15d4a48a0c388484fad0bc070c3486bf6637b41"
+    },
+    {
+      "path": "tools/upgrade.mjs",
+      "bytes": 5340,
+      "sha256": "36be4578e9cbdabee4836800bfe79f96add0748a3e8d3362617bf9fbbb344b6f"
     },
     {
       "path": "Uninstall.cmd",

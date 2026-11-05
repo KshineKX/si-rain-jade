@@ -1,9 +1,7 @@
-# 私有原生测试候选
+# Private native test candidate
 
-本包仅为用户本人下载、在DSH中试装验收而封装，不作为角色美术的公开分发。原场景素材来自已冻结preview.25交接；图片和视频字节未改动。角色及美术相关权利不因代码MIT许可转移；公开再分发权限未独立核实，不能将整个媒体包按MIT公开。
+Code Copyright 2026 KshineKX, MIT. Upstream glass-style reference and its MIT notice are retained under packages/skin/docs/THIRD-PARTY.md and licenses. Code licensing does not cover character artwork. This repository and media package remain private for the owner's download acceptance; public redistribution rights of the artwork have not been independently verified.
 
-原型玻璃风格参考dsh-liquid-glass，MIT全文在packages/skin/licenses中，范围说明在packages/skin/docs/THIRD-PARTY.md。新增原生接入代码采用MIT；DSH与Node不随包提供。
+Version native.2 includes the received rc5.1/rc5.2 native repairs, guarded Windows junction/BOM handling and plugin-only version upgrade/rollback, plus the accepted original snowy-day hot spring scene. No user sessions, credentials, temporary host entry, generation receipts, rejected image v2 or archival upscaled master are included.
 
-真实官方DSH0.2.1-rc.5的独立Web profile已加载本插件；12个昼夜/画质动态组合均播放，专注暂停、刷新恢复通过。未在用户当前desktop profile试装，未发送真实模型消息；实际发送/停止、流式输出、助手/模型切换与最终视觉仍待用户本人验收。
-
-本包不包含专属角色会话服务、历史、凭据或个人会话ID，不会启动角色后端。安装/卸载只在明确操作后进行，不自动重启DSH。发现配置后续变化时拒绝覆盖，以保护用户修改。
+Independent official DSH Web validation is distinct from the user's actual desktop profile. No model requests were sent. Full Windows caption color coverage and actual desktop background suspension remain unverified.

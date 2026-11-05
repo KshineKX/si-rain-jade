@@ -4,7 +4,7 @@ import {createMotion} from './motion.js';
 const ID='endfield-ritual-skin';
 const KEY='endfield-ritual:preview:v1';
 const ENUMS={tone:['light','dark'],reading:['admire','focus'],palette:["jade","celadon","pine","teal","mist","frost","mono","forest","ink","moss"],material:['native','liquid','frost','jade'],motion:['static','dynamic'],quality:['standard','ultra'],scene:Object.keys(SCENES)};
-const DEFAULTS={tone:'light',reading:'admire',palette:'jade',material:'liquid',motion:'dynamic',quality:'ultra',scene:'lotus'};
+const DEFAULTS={tone:'dark',reading:'admire',palette:'jade',material:'liquid',motion:'dynamic',quality:'ultra',scene:'lotus'};
 export function sanitize(value={}){const safe={...DEFAULTS};for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(value?.[key]))safe[key]=value[key];return safe}
 export function mount(root=document.documentElement,{storage=localStorage}={}){
  const current=document.getElementById(ID);if(current)return current.controller;
@@ -12,7 +12,7 @@ export function mount(root=document.documentElement,{storage=localStorage}={}){
  const before=ownAttrs.map(name=>[name,root.getAttribute(name)]);
  let stored={};try{stored=JSON.parse(storage.getItem(KEY)||'{}')||{}}catch{}
  const query=new URLSearchParams(location.search),settings=sanitize(stored);
- if(stored.motionSchema!==1)settings.motion='dynamic';
+ if(stored.motionSchema!==1)settings.motion='dynamic';if(!(stored.schema>=2))settings.tone='dark';settings.schema=2;
  if(['blue','slate'].includes(stored.palette))settings.palette='mist';
  for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(query.get(key)))settings[key]=query.get(key);
  if(['blue','slate'].includes(query.get('palette')))settings.palette='mist';
@@ -40,7 +40,7 @@ export function mount(root=document.documentElement,{storage=localStorage}={}){
   for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(next[key]))settings[key]=next[key];
   root.dataset.ritualTone=settings.tone;root.dataset.ritualReading=settings.reading;root.dataset.ritualPalette=settings.palette;root.dataset.ritualMaterial=settings.material;
 
-  syncScene();try{storage.setItem(KEY,JSON.stringify({...settings,motionSchema:1}))}catch{}
+  syncScene();try{storage.setItem(KEY,JSON.stringify({...settings,motionSchema:1,schema:2}))}catch{}
   document.dispatchEvent(new CustomEvent('ritual:change',{detail:{...settings}}));
  }
  const controller={update,get settings(){return {...settings}},destroy(){disposed=true;ticket++;motion.destroy();observer.disconnect();layer.remove();for(const[name,value]of before)value===null?root.removeAttribute(name):root.setAttribute(name,value)}};
