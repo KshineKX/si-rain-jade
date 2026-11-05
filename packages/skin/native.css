@@ -61,10 +61,12 @@ html[data-si-native][data-ritual-material="native"] [data-si-surface="header"]::
 
 /* Three view modes. Keep the native conversation mounted to preserve drafts and scroll. */
 html[data-si-native] [data-si-view-hidden],html[data-si-native] [data-si-view-hidden] *{visibility:hidden!important;pointer-events:none!important}
-html[data-si-native][data-ritual-reading="admire"] #endfield-ritual-skin{left:var(--si-gallery-left,0px)}
-html[data-si-native][data-ritual-reading="admire"] #endfield-ritual-skin .ritual-art{display:block!important;object-fit:contain;object-position:center}
-html[data-si-native][data-ritual-reading="admire"] :is(.ritual-reading-light,.ritual-edge-glass){display:none!important}
-html[data-si-native][data-ritual-reading="admire"] [data-si-surface="sidebar-column"]::before{inset:0;mask-image:none}
+/* Gallery keeps the same full-window artwork geometry as normal mode. */
+html[data-si-native][data-ritual-reading="admire"] #endfield-ritual-skin .ritual-art{display:block!important}
+html[data-si-native][data-ritual-reading="admire"] .ritual-reading-light{display:none!important}
+/* Retain the existing frame optics while its foreground text and controls are hidden. */
+html[data-si-native][data-ritual-reading="admire"][data-si-gallery-style="glass"] :is([data-si-surface="sidebar-column"],[data-si-surface="header"])::before{visibility:visible!important}
+html[data-si-native][data-ritual-reading="admire"][data-si-gallery-style="clean"] .ritual-edge-glass{display:none!important}
 #si-native-dock button[data-si-view-mode]{position:relative;padding-bottom:8px}
 .si-view-steps{position:absolute;bottom:2px;display:flex;gap:3px;pointer-events:none}
 .si-view-steps i{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.28}
@@ -74,3 +76,9 @@ html[data-si-native][data-ritual-reading="admire"] [data-si-surface="sidebar-col
 html[data-si-native] [data-si-surface="composer-seat"]{background:transparent!important;background-image:none!important}
 html[data-si-native] [data-si-surface="message-bubble"]{background:var(--surface-fill)!important;color:var(--ink)!important;border:1px solid var(--line)!important;backdrop-filter:var(--surface-filter);box-shadow:0 12px 30px -16px var(--shadow)}
 html[data-si-native] :is([data-si-surface="composer-seat"],[data-composer-card]) [data-si-surface="message-bubble"]{background:transparent!important;border-color:transparent!important;backdrop-filter:none;box-shadow:none!important}
+
+/* Pure artwork: keep a reversible control, quietly fading it while the pointer rests. */
+#si-native-dock button[hidden]{display:none!important}
+#si-native-dock{transition:opacity .18s ease,visibility 0s}
+html[data-si-gallery-tools="hidden"] #si-native-dock{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,visibility 0s .18s}
+@media(prefers-reduced-motion:reduce){#si-native-dock{transition:none}}
