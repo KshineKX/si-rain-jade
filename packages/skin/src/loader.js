@@ -4,11 +4,12 @@ import {createMotion} from './motion.js';
 const ID='endfield-ritual-skin';
 const KEY='endfield-ritual:preview:v1';
 const ENUMS={tone:['light','dark'],reading:['normal','focus','admire'],palette:["jade","celadon","pine","teal","mist","frost","mono","forest","ink","moss"],material:['native','liquid','frost','jade'],motion:['static','dynamic'],quality:['standard','ultra'],scene:Object.keys(SCENES)};
-const DEFAULTS={tone:'dark',reading:'normal',palette:'jade',material:'liquid',motion:'dynamic',quality:'ultra',scene:'lotus'};
-export function sanitize(value={}){const safe={...DEFAULTS};for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(value?.[key]))safe[key]=value[key];return safe}
+const DEFAULTS={tone:'dark',reading:'normal',palette:'jade',material:'liquid',motion:'dynamic',quality:'ultra',scene:'lotus',normalFog:0,focusFog:100};
+export function sanitize(value={}){const safe={...DEFAULTS};for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(value?.[key]))safe[key]=value[key];for(const key of ['normalFog','focusFog'])if(typeof value?.[key]==='number'&&Number.isFinite(value[key]))safe[key]=Math.round(Math.max(0,Math.min(100,value[key])));return safe}
+export function readingFog(percent){const p=Math.max(0,Math.min(100,Number(percent)||0));return p===0?{fill:'transparent',filter:'none'}:p<=50?{fill:'color-mix(in srgb, transparent '+(100-p*2)+'%, var(--paper) '+p*2+'%)',filter:'blur('+(3*p/50)+'px)'}:{fill:'color-mix(in srgb, var(--paper) '+(200-p*2)+'%, var(--paper-focus) '+(p*2-100)+'%)',filter:'blur('+(3+13*(p-50)/50)+'px)'};}
 export function mount(root=document.documentElement,{storage=localStorage}={}){
  const current=document.getElementById(ID);if(current)return current.controller;
- const ownAttrs=['data-ritual-tone','data-ritual-reading','data-ritual-palette','data-ritual-material'];
+ const ownAttrs=['data-ritual-tone','data-ritual-reading','data-ritual-palette','data-ritual-material','data-ritual-fog'];
  const before=ownAttrs.map(name=>[name,root.getAttribute(name)]);
  let stored={};try{stored=JSON.parse(storage.getItem(KEY)||'{}')||{}}catch{}
  const query=new URLSearchParams(location.search),settings=sanitize(stored);
@@ -40,9 +41,11 @@ export function mount(root=document.documentElement,{storage=localStorage}={}){
  const observer=new ResizeObserver(syncVeil);if(flow)observer.observe(flow);if(scroll)observer.observe(scroll);
  function update(next={}){
   for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(next[key]))settings[key]=next[key];
+  for(const key of ['normalFog','focusFog'])if(typeof next[key]==='number'&&Number.isFinite(next[key]))settings[key]=Math.round(Math.max(0,Math.min(100,next[key])));
   root.dataset.ritualTone=settings.tone;root.dataset.ritualReading=settings.reading;root.dataset.ritualPalette=settings.palette;root.dataset.ritualMaterial=settings.material;
 
-  syncScene();try{storage.setItem(KEY,JSON.stringify({...settings,motionSchema:1,schema:2,readingSchema:1}))}catch{}
+  const percent=settings.reading==='focus'?settings.focusFog:settings.normalFog,fog=readingFog(percent);root.dataset.ritualFog=String(percent);veil.style.background=fog.fill;veil.style.backdropFilter=fog.filter;
+  syncScene();try{storage.setItem(KEY,JSON.stringify({...settings,motionSchema:1,schema:2,readingSchema:1,fogSchema:1}))}catch{}
   document.dispatchEvent(new CustomEvent('ritual:change',{detail:{...settings}}));
  }
  const controller={update,get settings(){return {...settings}},destroy(){disposed=true;ticket++;motion.destroy();observer.disconnect();layer.remove();for(const[name,value]of before)value===null?root.removeAttribute(name):root.setAttribute(name,value)}};

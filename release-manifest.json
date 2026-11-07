@@ -1,10 +1,10 @@
 {
-  "version": "0.1.0-native.6",
+  "version": "0.1.1",
   "files": [
     {
       "path": "CHANGELOG.md",
-      "bytes": 1564,
-      "sha256": "505a595730f3053e7072986d5d139cc3c9d9754e5d84aaaf037df5c5821ac4ef"
+      "bytes": 1915,
+      "sha256": "e1848b057aea3f9dfbf4b18e30dbb089089d63e3b76809cb68c4b51baa6b7b58"
     },
     {
       "path": "Install.cmd",
@@ -18,13 +18,33 @@
     },
     {
       "path": "NOTICE.md",
-      "bytes": 973,
-      "sha256": "988faed2cfe971c6f239f5e503ce6409e71c7fc27935a01b0e8936941aecf58d"
+      "bytes": 975,
+      "sha256": "036735060b43178952789b5eefc5cff31391c787cb2b7e154812e911b168b3c8"
     },
     {
       "path": "package.json",
-      "bytes": 198,
-      "sha256": "00d8e723113af5f17fcf6039458bb0befa07d194f573581787038cc63afb8804"
+      "bytes": 199,
+      "sha256": "d6666c15556afa6230f617353176d3b043e3dce103387ac583f297f4549727f5"
+    },
+    {
+      "path": "packages/skin/assets/onsen-idle-standard-color-v6.mp4",
+      "bytes": 8414894,
+      "sha256": "13fe5e23c2b3115c25fe2e1be6589f286e240782edf65abdc9ba2e700f03e0c3"
+    },
+    {
+      "path": "packages/skin/assets/onsen-idle-ultra-color-v6.mp4",
+      "bytes": 52309440,
+      "sha256": "e338fa546ce5dfdad0c8f4d19a59bccca01a3684ead3d1a004439c774dc33a85"
+    },
+    {
+      "path": "packages/skin/assets/onsen-intro-standard-color-v6.mp4",
+      "bytes": 6272621,
+      "sha256": "7ee4b45eae16de57bf8b4d848facdc46f95c003a44e776f3d3b732dad46ad1c5"
+    },
+    {
+      "path": "packages/skin/assets/onsen-intro-ultra-color-v6.mp4",
+      "bytes": 40173244,
+      "sha256": "0070973310b5725b00d0aa67f325b12686a0506364f0a3e3314df001d6ed8725"
     },
     {
       "path": "packages/skin/assets/rain-lotus-day-five-toes-v2.png",
@@ -77,19 +97,14 @@
       "sha256": "0bfabdfcc6387fb505b85d8c9f336abe8f5f4aecd0f0421f1b510c93d9fcd3a7"
     },
     {
-      "path": "packages/skin/assets/scene-onsen-light-motion-standard-v1.mp4",
-      "bytes": 5735118,
-      "sha256": "c07db437f01cfb1f8fc544155adf7dbc71756f21f540f1af32a743341008d395"
+      "path": "packages/skin/assets/scene-onsen-right-cross-end-color-v6.png",
+      "bytes": 8166879,
+      "sha256": "9fea7655616c244784609adbbda6fd8c26ff4df98f6786880dbe8e2617f6ddd9"
     },
     {
-      "path": "packages/skin/assets/scene-onsen-light-motion-ultra-v1.mp4",
-      "bytes": 37341902,
-      "sha256": "e90ff19ab4519809f07c044d6186564b752975a5777a0b4548ee6bc7f8e18ac1"
-    },
-    {
-      "path": "packages/skin/assets/scene-onsen-snow-day-v1.png",
-      "bytes": 2407411,
-      "sha256": "d68962be701efba46d365f6c5eafaa5c7357ec886348c0ae6bdc876fefd04941"
+      "path": "packages/skin/assets/scene-onsen-snow-day-right-foot-v4.png",
+      "bytes": 2219081,
+      "sha256": "96b871708384567dcae5e1700fbfe9047ea4cb760069e2e9d1bcc82ca2be011e"
     },
     {
       "path": "packages/skin/assets/scene-repose-dark-motion-standard-feedback-v5.mp4",
@@ -168,8 +183,8 @@
     },
     {
       "path": "packages/skin/docs/PROVENANCE.md",
-      "bytes": 974,
-      "sha256": "2ee769e1033f5eb5de7fcbd77211ade980d7b4e3ce8617560fa18f8d8021ef52"
+      "bytes": 1543,
+      "sha256": "e5d272edaf533df87c62be60ee4a72434ae705a1755d036e9ba3f0af34c14d20"
     },
     {
       "path": "packages/skin/docs/THIRD-PARTY.md",
@@ -178,8 +193,8 @@
     },
     {
       "path": "packages/skin/lib/client.js",
-      "bytes": 55552,
-      "sha256": "b919c17952fac0c746d8cd4a38b7bb6090193476137f943fe7cf9b2d2aa63f5f"
+      "bytes": 62486,
+      "sha256": "a6291c58ef88847bce7d690efd01e044a2126ecd264f08ce0e66ebf09c3524ee"
     },
     {
       "path": "packages/skin/lib/index.js",
@@ -188,8 +203,8 @@
     },
     {
       "path": "packages/skin/lib/media.json",
-      "bytes": 1048,
-      "sha256": "7bbe8490447fd8223d739bfc2ab83c096b2536dde57494e250bd0b839cdc389f"
+      "bytes": 1155,
+      "sha256": "31f79faad81d76214dd6ad25a520e3b7707728c59ca7000674ed68ae1d7cc621"
     },
     {
       "path": "packages/skin/licenses/dsh-liquid-glass-MIT.txt",
@@ -198,23 +213,23 @@
     },
     {
       "path": "packages/skin/native-client.js",
-      "bytes": 15093,
-      "sha256": "7b1694a844c87d884b622f54c0e248880fd8314226ecf02edfaacdea4d7dce83"
+      "bytes": 16705,
+      "sha256": "641701bcfae6417a109977c5a9daeaddc53a40e2a836c386eda031252d05283b"
     },
     {
       "path": "packages/skin/native.css",
-      "bytes": 12268,
-      "sha256": "af469d6bbf0b8bc5d8bf1958be37de1efba6a837716bbb2d96888557b42a1683"
+      "bytes": 13531,
+      "sha256": "c5c9d284fa02f00007c77cf5560ebeeac05995b5f56c6e1e6700ac36defb74b6"
     },
     {
       "path": "packages/skin/package.json",
-      "bytes": 391,
-      "sha256": "40492a624861c93ff51447a4d746cdfb940ebd099310b3e7594f824f20a16c0d"
+      "bytes": 403,
+      "sha256": "e7eaad0478a692d01312629b2f9638af48b7d88d728dbd3c5eac938ed55008a0"
     },
     {
       "path": "packages/skin/src/loader.js",
-      "bytes": 5046,
-      "sha256": "1d52ad34238ae21906a79ae95c35451a1dadd4dba50dce817be57fa6658f98ea"
+      "bytes": 6027,
+      "sha256": "24f1e9891d4aeb455e880cb674e8239cd19acba0f7803da48d2e4f70eba3ebb0"
     },
     {
       "path": "packages/skin/src/materials.css",
@@ -223,8 +238,8 @@
     },
     {
       "path": "packages/skin/src/motion.js",
-      "bytes": 2640,
-      "sha256": "abdf0232045ff788294fad913ca29f91393fda4684d7be4b5ecdd9919d6036b6"
+      "bytes": 5077,
+      "sha256": "11392b829b3e18b9588db9f125cdd1d2f65c0100f59866c8d7eaa0208fdc7658"
     },
     {
       "path": "packages/skin/src/pinned-entry.js",
@@ -233,8 +248,8 @@
     },
     {
       "path": "packages/skin/src/scenes.js",
-      "bytes": 3987,
-      "sha256": "e5f2cb96400b5bf452225e49dfa20dcc94fa99b452a41de4e6daf35e08209bb0"
+      "bytes": 4603,
+      "sha256": "fa56dd6b84c28917bd8501731d0b08194ba388d1b348166ed895bd6741a768d8"
     },
     {
       "path": "packages/skin/src/tokens.css",
@@ -243,8 +258,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3704,
-      "sha256": "083e21735d8b34cf64ec3f3ae846cfc92c57e26a644ab9e6c862297f7091d877"
+      "bytes": 5225,
+      "sha256": "73ecff44c0942131dbb3a8524f06aa5511c120f7f4850bd8c35bc5f36a83707f"
     },
     {
       "path": "Rollback.cmd",
@@ -263,8 +278,8 @@
     },
     {
       "path": "test/onsen.test.mjs",
-      "bytes": 1306,
-      "sha256": "9cd62ae0e703a8980730373ec6aa5c70d4b1411a24a230ee7515d6f8c02f2e72"
+      "bytes": 1520,
+      "sha256": "6fa89f460969d164f11204f1bf6a1525f97db789acae399a04c6158bb35b4242"
     },
     {
       "path": "test/pinned-entry.test.mjs",

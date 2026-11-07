@@ -12,5 +12,11 @@ export function describeScene(id,tone){const scene=resolveScene(id);return {titl
 
 export const MOTION_ULTRA={lotus:{light:new URL('../assets/scene-lotus-light-motion-ultra-detail-v4.mp4',import.meta.url).href,dark:new URL('../assets/scene-lotus-dark-motion-ultra-brow-v6.mp4',import.meta.url).href},window:{light:new URL('../assets/scene-window-light-motion-ultra-detail-v4.mp4',import.meta.url).href,dark:new URL('../assets/scene-window-dark-motion-ultra-detail-v4.mp4',import.meta.url).href},repose:{light:new URL('../assets/scene-repose-light-motion-ultra-feedback-v5.mp4',import.meta.url).href,dark:new URL('../assets/scene-repose-dark-motion-ultra-feedback-v5.mp4',import.meta.url).href}};
 
-SCENES.onsen={"id":"onsen","title":"雪庭温泉","description":{"light":"雪庭温泉 · 雪日汤泉","dark":"雪庭温泉 · 雪日汤泉"},"images":{"light":new URL("../assets/scene-onsen-snow-day-v1.png",import.meta.url).href,"dark":new URL("../assets/scene-onsen-snow-day-v1.png",import.meta.url).href},"motion":{"light":new URL("../assets/scene-onsen-light-motion-standard-v1.mp4",import.meta.url).href,"dark":new URL("../assets/scene-onsen-light-motion-standard-v1.mp4",import.meta.url).href},"singleLighting":true,"availabilityNote":"当前为雪日单景，深浅仅切界面配色；尚无夜景素材。"};
-MOTION_ULTRA.onsen={"light":new URL("../assets/scene-onsen-light-motion-ultra-v1.mp4",import.meta.url).href,"dark":new URL("../assets/scene-onsen-light-motion-ultra-v1.mp4",import.meta.url).href};
+SCENES.onsen={"id":"onsen","title":"雪庭温泉","description":{"light":"雪庭温泉 · 雪日汤泉","dark":"雪庭温泉 · 雪日汤泉"},"images":{"light":new URL("../assets/scene-onsen-snow-day-right-foot-v4.png",import.meta.url).href,"dark":new URL("../assets/scene-onsen-snow-day-right-foot-v4.png",import.meta.url).href},"motion":{"light":new URL("../assets/onsen-intro-standard-color-v6.mp4",import.meta.url).href,"dark":new URL("../assets/onsen-intro-standard-color-v6.mp4",import.meta.url).href},"singleLighting":true,"availabilityNote":"当前为雪日单景，深浅仅切界面配色；尚无夜景素材。"};
+MOTION_ULTRA.onsen={"light":new URL("../assets/onsen-intro-ultra-color-v6.mp4",import.meta.url).href,"dark":new URL("../assets/onsen-intro-ultra-color-v6.mp4",import.meta.url).href};
+
+SCENES.onsen.motionBehavior="intro-idle";
+SCENES.onsen.endImages={light:new URL("../assets/scene-onsen-right-cross-end-color-v6.png",import.meta.url).href,dark:new URL("../assets/scene-onsen-right-cross-end-color-v6.png",import.meta.url).href};
+
+SCENES.onsen.idleMotion={light:new URL("../assets/onsen-idle-standard-color-v6.mp4",import.meta.url).href,dark:new URL("../assets/onsen-idle-standard-color-v6.mp4",import.meta.url).href};
+SCENES.onsen.idleMotionUltra={light:new URL("../assets/onsen-idle-ultra-color-v6.mp4",import.meta.url).href,dark:new URL("../assets/onsen-idle-ultra-color-v6.mp4",import.meta.url).href};
