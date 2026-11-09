@@ -4,26 +4,29 @@
 
 以《明日方舟：终末地》角色「祀」为主题，将七组场景、动态壁纸与柔和玻璃材质融入聊天界面，在日常阅读、专注工作与纯画面观赏之间切换。
 
-**[下载 0.1.1](https://github.com/KshineKX/si-rain-jade/releases/download/v0.1.1/Si-Rain-Jade-0.1.1.zip)** · [更新说明与文件校验](https://github.com/KshineKX/si-rain-jade/releases/tag/v0.1.1) · [历史版本](https://github.com/KshineKX/si-rain-jade/releases)
+**[下载 0.2.0](https://github.com/KshineKX/si-rain-jade/releases/download/v0.2.0/Si-Rain-Jade-0.2.0.zip)** · [更新说明与文件校验](https://github.com/KshineKX/si-rain-jade/releases/tag/v0.2.0) · [历史版本](https://github.com/KshineKX/si-rain-jade/releases)
 
 ## 预览
+
+[观看宣传视频](https://www.bilibili.com/video/BV1ZRWA6vEP3/)
 
 ### 聊天界面
 
 柔和的侧栏、输入框与三键工具栏，配合背景和深浅配色。
 
-![祀 · 雨荷青玉聊天界面](docs/previews/interface.png)
+![祀 · 雨荷青玉聊天界面](https://raw.githubusercontent.com/KshineKX/si-rain-jade/main/docs/previews/interface.png)
 
 ### 窗榻听雨
 
-![窗榻听雨](docs/previews/window-rain.png)
+![窗榻听雨](https://raw.githubusercontent.com/KshineKX/si-rain-jade/main/docs/previews/window-rain.png)
 
 ### 雪庭温泉
 
-![雪庭温泉](docs/previews/snow-onsen.png)
+![雪庭温泉](https://raw.githubusercontent.com/KshineKX/si-rain-jade/main/docs/previews/snow-onsen.png)
 
 ## 功能
 
+- **开屏动画**：进入画境前呈现水墨开场，支持关闭、重播、跳过与 Esc；根据当前壁纸和外观自然收尾。
 - **七组场景**：雨声里的片刻、窗榻听雨、铺卷小憩、墨境桥行、掌柜闲时、祀的鬼画符、雪庭温泉。
 - **三档显示**：默认保留日常聊天；专注加强阅读衬底并暂停动态；观赏隐藏界面，展示纯画面。
 - **阅读浓度调节**：在设置中调整 0–100% 雾层浓度，默认与专注模式分别记忆偏好。
@@ -44,6 +47,8 @@
 
 已安装用户按相同步骤升级。安装器会保留原版本和配置备份；如果提示配置或链接冲突，请先处理提示，不要手动覆盖。
 
+首次安装会切换皮肤，并停用检测到的其他皮肤条目；执行前可查看[安装改动范围](docs/USAGE.md#安装改动范围)。已有受控升级保留原 patch。
+
 使用自定义 DSH 数据目录或非默认 profile 时，请按[高级安装说明](docs/USAGE.md#自定义数据目录)指定目标。
 
 ### 回退与卸载
@@ -61,8 +66,14 @@
 
 观赏时，工具栏在鼠标静止后自动淡出；移动鼠标或按 Tab 唤回。切换显示模式会保留未发送的草稿与滚动位置。
 
+## 开屏
+
+设置 → 开屏可关闭或重播。荷塘浅色、非默认材质使用约 14.6 秒的专属结尾；其他场景、深色或默认材质使用约 9.6 秒的剪影过渡，渐散后显露当前背景。开屏不会更改壁纸选择，跳过或结束后恢复聊天与焦点。
+
+开屏片段来源：[见习饼饼（UID736251）· BV15eJD6DEec](https://www.bilibili.com/video/BV15eJD6DEec/)，非商用署名使用；作者署名在播放时显示。[开屏使用与素材说明](packages/skin/docs/OPENING.md)
+
 ## 许可与致谢
 
-本项目为非官方同人作品。代码采用 [MIT License](LICENSE)；角色、美术与商标权利独立于代码许可。上游项目及许可见 [NOTICE](NOTICE.md) 和[来源说明](packages/skin/docs/PROVENANCE.md)。
+本项目为非官方同人作品。代码采用 [MIT License](LICENSE)；角色、美术、开屏片段与商标权利独立于代码许可。上游项目及许可见 [NOTICE](NOTICE.md) 和[来源说明](packages/skin/docs/PROVENANCE.md)。
 
-截图中的额度挂件属于独立插件，不包含在本皮肤中。
+截图中的额度挂件由独立插件 [DeepSeek Balance Whale Widget](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget) 提供，不包含在本皮肤中；使用自定义角色图请通过该插件的角色图库导入，泡泡图库为另一项功能。

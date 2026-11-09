@@ -1,10 +1,20 @@
 {
-  "version": "0.1.1",
+  "version": "0.2.0",
   "files": [
     {
       "path": "CHANGELOG.md",
-      "bytes": 1915,
-      "sha256": "e1848b057aea3f9dfbf4b18e30dbb089089d63e3b76809cb68c4b51baa6b7b58"
+      "bytes": 512,
+      "sha256": "ea3e24ea20d5130750e25da84bf436c6c946ce521e68d3e478703f5a8d1f1478"
+    },
+    {
+      "path": "docs/COMPATIBILITY.md",
+      "bytes": 1329,
+      "sha256": "fe75ddb04f60cc9beff59ec2db96ca5158f6ac2da98ba1b2b1cc321de8b81bd8"
+    },
+    {
+      "path": "docs/USAGE.md",
+      "bytes": 3900,
+      "sha256": "2bbfcec8bd5bc5a5e4fb664e6b291264d07fbb17349fdc7fabbc8106e4de1cf7"
     },
     {
       "path": "Install.cmd",
@@ -18,13 +28,13 @@
     },
     {
       "path": "NOTICE.md",
-      "bytes": 975,
-      "sha256": "036735060b43178952789b5eefc5cff31391c787cb2b7e154812e911b168b3c8"
+      "bytes": 1657,
+      "sha256": "a981559e8502b7d42cf62ff089985e8b7a41a5bbb74b308660f227ac9eb63960"
     },
     {
       "path": "package.json",
-      "bytes": 199,
-      "sha256": "d6666c15556afa6230f617353176d3b043e3dce103387ac583f297f4549727f5"
+      "bytes": 274,
+      "sha256": "6ab14607e9bc324372f23690a5e7c9f1c99725f74df947b62e58cb9fbca47c1b"
     },
     {
       "path": "packages/skin/assets/onsen-idle-standard-color-v6.mp4",
@@ -167,6 +177,16 @@
       "sha256": "8a841e91a05282e8df5904b353b95188a2d06c1c62b2747816ec9a40a2ac1b25"
     },
     {
+      "path": "packages/skin/assets/si-opening-full-v3.mp4",
+      "bytes": 46632535,
+      "sha256": "9a565a7a423f88c1d16a600dfdd6c1ef8e07f19334c227e7f4b9b2ba61a12e4d"
+    },
+    {
+      "path": "packages/skin/assets/si-opening-neutral-v3.mp4",
+      "bytes": 28831880,
+      "sha256": "9f1efa8bcecb1554cccacb49cc8173b3c9bae06d995bf4a557666c588e2e17bb"
+    },
+    {
       "path": "packages/skin/assets/tea-calligraphy-day-v1.png",
       "bytes": 2773625,
       "sha256": "151e189d234697c8111d3696e5ca8c18fe6eb1d6d616aee2a3f43ff066b91680"
@@ -182,9 +202,14 @@
       "sha256": "0159389b21648a9aeeb14913263caa1dca943029cf3d4d65ce65a53aca3a1fc0"
     },
     {
+      "path": "packages/skin/docs/OPENING.md",
+      "bytes": 1727,
+      "sha256": "0ae9666e6222a0a4684f0ba285d56b851f78df7876e6c3049a986d97c8483344"
+    },
+    {
       "path": "packages/skin/docs/PROVENANCE.md",
-      "bytes": 1543,
-      "sha256": "e5d272edaf533df87c62be60ee4a72434ae705a1755d036e9ba3f0af34c14d20"
+      "bytes": 1109,
+      "sha256": "d279cf32831c27e4daeda4ce02e332c038abf29bd0b1136d359db60e1608033b"
     },
     {
       "path": "packages/skin/docs/THIRD-PARTY.md",
@@ -193,8 +218,8 @@
     },
     {
       "path": "packages/skin/lib/client.js",
-      "bytes": 62486,
-      "sha256": "a6291c58ef88847bce7d690efd01e044a2126ecd264f08ce0e66ebf09c3524ee"
+      "bytes": 77612,
+      "sha256": "df8f0d45f3174045854b2eb9c9783028a019ecf739c04a944d2d99ee8263d390"
     },
     {
       "path": "packages/skin/lib/index.js",
@@ -203,8 +228,8 @@
     },
     {
       "path": "packages/skin/lib/media.json",
-      "bytes": 1155,
-      "sha256": "31f79faad81d76214dd6ad25a520e3b7707728c59ca7000674ed68ae1d7cc621"
+      "bytes": 1208,
+      "sha256": "2742e272a311dc30519b18899a658833b44a9454c5f4aaf4e84cab8135c083d7"
     },
     {
       "path": "packages/skin/licenses/dsh-liquid-glass-MIT.txt",
@@ -213,23 +238,23 @@
     },
     {
       "path": "packages/skin/native-client.js",
-      "bytes": 16705,
-      "sha256": "641701bcfae6417a109977c5a9daeaddc53a40e2a836c386eda031252d05283b"
+      "bytes": 17806,
+      "sha256": "e9eddc3fbd28a36246c6a38246030fc94f60086691b0a7ec85467313c2799519"
     },
     {
       "path": "packages/skin/native.css",
-      "bytes": 13531,
-      "sha256": "c5c9d284fa02f00007c77cf5560ebeeac05995b5f56c6e1e6700ac36defb74b6"
+      "bytes": 16609,
+      "sha256": "c6091d40c845d615cf7f8eeef7a542517b991f5b6bb312865167e4d8663c6d55"
     },
     {
       "path": "packages/skin/package.json",
-      "bytes": 403,
-      "sha256": "e7eaad0478a692d01312629b2f9638af48b7d88d728dbd3c5eac938ed55008a0"
+      "bytes": 478,
+      "sha256": "27ac77fef07eb495901a8d15fdce2bbdbb9feb5b85c0cfebfd2dcf9cdfc7d03d"
     },
     {
       "path": "packages/skin/src/loader.js",
-      "bytes": 6027,
-      "sha256": "24f1e9891d4aeb455e880cb674e8239cd19acba0f7803da48d2e4f70eba3ebb0"
+      "bytes": 6536,
+      "sha256": "17cc97812c07abca3442cdb75a807b9e7d2f53517098f1f41cddc4b0f629cfa5"
     },
     {
       "path": "packages/skin/src/materials.css",
@@ -238,8 +263,13 @@
     },
     {
       "path": "packages/skin/src/motion.js",
-      "bytes": 5077,
-      "sha256": "11392b829b3e18b9588db9f125cdd1d2f65c0100f59866c8d7eaa0208fdc7658"
+      "bytes": 5143,
+      "sha256": "6ce8a56ff2a4c519e0deda3f886461dfa96538c418d55de557300b36b6f6732f"
+    },
+    {
+      "path": "packages/skin/src/opening.js",
+      "bytes": 9849,
+      "sha256": "6216832488925d71a8ebd94da8144eef3e297b316e9cf84d24169a5203903323"
     },
     {
       "path": "packages/skin/src/pinned-entry.js",
@@ -248,8 +278,8 @@
     },
     {
       "path": "packages/skin/src/scenes.js",
-      "bytes": 4603,
-      "sha256": "fa56dd6b84c28917bd8501731d0b08194ba388d1b348166ed895bd6741a768d8"
+      "bytes": 5182,
+      "sha256": "ac486e6b35e616ffe55b91d7ea927f4d373ef6c95da48c0fc0cb6e06bb1a625e"
     },
     {
       "path": "packages/skin/src/tokens.css",
@@ -258,8 +288,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5225,
-      "sha256": "73ecff44c0942131dbb3a8524f06aa5511c120f7f4850bd8c35bc5f36a83707f"
+      "bytes": 4926,
+      "sha256": "a39a89883775f7fcf2511621cb13170adfd3d8fe83cce6d1ae48a3e0d649afb0"
     },
     {
       "path": "Rollback.cmd",
@@ -293,8 +323,8 @@
     },
     {
       "path": "tools/build.mjs",
-      "bytes": 2262,
-      "sha256": "7646f55ece2b75fd393b0c3a547a2d801da634624ba07a824bfe55b0b51cc144"
+      "bytes": 2285,
+      "sha256": "a7ceaa9dcad78ead06cee8a33a34b3aad5f1cbcea8bb33804efcce8a19ecb839"
     },
     {
       "path": "tools/manage.mjs",

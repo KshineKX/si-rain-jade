@@ -1,6 +1,6 @@
 {
   "name": "dsh-si-rain-jade",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -17,5 +17,6 @@
       "platform": "web"
     }
   },
-  "private": true
+  "private": true,
+  "description": "祀 · 雨荷青玉 — DeepSeek Harness 主题皮肤"
 }

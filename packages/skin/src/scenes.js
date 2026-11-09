@@ -20,3 +20,6 @@ SCENES.onsen.endImages={light:new URL("../assets/scene-onsen-right-cross-end-col
 
 SCENES.onsen.idleMotion={light:new URL("../assets/onsen-idle-standard-color-v6.mp4",import.meta.url).href,dark:new URL("../assets/onsen-idle-standard-color-v6.mp4",import.meta.url).href};
 SCENES.onsen.idleMotionUltra={light:new URL("../assets/onsen-idle-ultra-color-v6.mp4",import.meta.url).href,dark:new URL("../assets/onsen-idle-ultra-color-v6.mp4",import.meta.url).href};
+
+// Bind only after the completed local media and its rights record have been checked.
+export const OPENING={id:'si-opening-20261109-v3',ready:true,fullSrc:new URL('../assets/si-opening-full-v3.mp4',import.meta.url).href,neutralSrc:new URL('../assets/si-opening-neutral-v3.mp4',import.meta.url).href,fullPoster:null,neutralPoster:null,maxDurationSeconds:30,loadTimeoutMs:7000,handoffMs:650,neutralRevealMs:950,credit:'开屏参考：见习饼饼 · BV15eJD6DEec｜非商用·保留署名',sourceUrl:'https://www.bilibili.com/video/BV15eJD6DEec/',rightsRecord:'docs/OPENING.md'};

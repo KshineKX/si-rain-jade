@@ -1,10 +1,11 @@
 import {SCENES,resolveScene,describeScene} from './scenes.js';
 import {createMotion} from './motion.js';
+import {createOpening} from './opening.js';
 // Independent visual prototype. Native installation/profile changes are separate.
 const ID='endfield-ritual-skin';
 const KEY='endfield-ritual:preview:v1';
-const ENUMS={tone:['light','dark'],reading:['normal','focus','admire'],palette:["jade","celadon","pine","teal","mist","frost","mono","forest","ink","moss"],material:['native','liquid','frost','jade'],motion:['static','dynamic'],quality:['standard','ultra'],scene:Object.keys(SCENES)};
-const DEFAULTS={tone:'dark',reading:'normal',palette:'jade',material:'liquid',motion:'dynamic',quality:'ultra',scene:'lotus',normalFog:0,focusFog:100};
+const ENUMS={opening:['on','off'],tone:['light','dark'],reading:['normal','focus','admire'],palette:["jade","celadon","pine","teal","mist","frost","mono","forest","ink","moss"],material:['native','liquid','frost','jade'],motion:['static','dynamic'],quality:['standard','ultra'],scene:Object.keys(SCENES)};
+const DEFAULTS={opening:'on',tone:'dark',reading:'normal',palette:'jade',material:'liquid',motion:'dynamic',quality:'ultra',scene:'lotus',normalFog:0,focusFog:100};
 export function sanitize(value={}){const safe={...DEFAULTS};for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(value?.[key]))safe[key]=value[key];for(const key of ['normalFog','focusFog'])if(typeof value?.[key]==='number'&&Number.isFinite(value[key]))safe[key]=Math.round(Math.max(0,Math.min(100,value[key])));return safe}
 export function readingFog(percent){const p=Math.max(0,Math.min(100,Number(percent)||0));return p===0?{fill:'transparent',filter:'none'}:p<=50?{fill:'color-mix(in srgb, transparent '+(100-p*2)+'%, var(--paper) '+p*2+'%)',filter:'blur('+(3*p/50)+'px)'}:{fill:'color-mix(in srgb, var(--paper) '+(200-p*2)+'%, var(--paper-focus) '+(p*2-100)+'%)',filter:'blur('+(3+13*(p-50)/50)+'px)'};}
 export function mount(root=document.documentElement,{storage=localStorage}={}){
@@ -22,7 +23,7 @@ export function mount(root=document.documentElement,{storage=localStorage}={}){
  const layer=document.createElement('div');layer.id=ID;layer.setAttribute('aria-hidden','true');
  layer.innerHTML='<img class="ritual-art" alt="" draggable="false"><div class="ritual-edge-glass"></div><div class="ritual-reading-light"></div>';
  const artwork=layer.querySelector('.ritual-art');
- let ticket=0,disposed=false;
+ let ticket=0,disposed=false,opening=null;
  const motion=createMotion(layer,()=>({settings,scene:resolveScene(settings.scene),artworkUrl:artwork.src}));
  function syncCaption(tone){const info=describeScene(settings.scene,tone);document.querySelectorAll('[data-scene-title]').forEach(el=>el.textContent=info.title);document.querySelectorAll('[data-scene-description]').forEach(el=>el.textContent='虚构对话 · '+info.description)}
  function commitScene(tone,url){syncCaption(tone);artwork.src=url;layer.style.setProperty('--ritual-scene-image',`url("${url}")`);layer.dataset.sceneTone=tone;delete layer.dataset.scenePending;motion.sync()}
@@ -46,8 +47,8 @@ export function mount(root=document.documentElement,{storage=localStorage}={}){
 
   const percent=settings.reading==='focus'?settings.focusFog:settings.normalFog,fog=readingFog(percent);root.dataset.ritualFog=String(percent);veil.style.background=fog.fill;veil.style.backdropFilter=fog.filter;
   syncScene();try{storage.setItem(KEY,JSON.stringify({...settings,motionSchema:1,schema:2,readingSchema:1,fogSchema:1}))}catch{}
-  document.dispatchEvent(new CustomEvent('ritual:change',{detail:{...settings}}));
+  opening?.sync();document.dispatchEvent(new CustomEvent('ritual:change',{detail:{...settings}}));
  }
- const controller={update,get settings(){return {...settings}},destroy(){disposed=true;ticket++;motion.destroy();observer.disconnect();layer.remove();for(const[name,value]of before)value===null?root.removeAttribute(name):root.setAttribute(name,value)}};
- layer.controller=controller;update();document.body.prepend(layer);syncVeil();return controller;
+ const controller={update,replayOpening(){return opening.play(true)},get opening(){return {available:opening?.available||false,state:opening?.state||'idle',variant:opening?.variant||'',handoff:opening?.handoff||''}},get settings(){return {...settings}},destroy(){disposed=true;ticket++;opening?.destroy();motion.destroy();observer.disconnect();layer.remove();for(const[name,value]of before)value===null?root.removeAttribute(name):root.setAttribute(name,value)}};
+ layer.controller=controller;update();document.body.prepend(layer);opening=createOpening(layer,()=>({settings,scene:resolveScene(settings.scene),artworkUrl:artwork.src}),{onActive:()=>motion.sync()});queueMicrotask(()=>{if(!disposed)void opening.play(false)});syncVeil();return controller;
 }

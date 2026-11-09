@@ -5,7 +5,7 @@ export function createMotion(layer,read){
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');let disposed=false,activeUrl='',activeScene='',activePhase='',completedIntro='',failedUrl='',finished=false,restoreAt=0,restoreEnd=false,seeking=false,posterHeld=false;
  function desired(){const {settings,scene,artworkUrl}=read(),sequence=scene.motionBehavior==='intro-idle',phase=sequence?(completedIntro===scene.id?'idle':'intro'):scene.motionBehavior==='once-hold'?'once':'loop',once=phase==='intro'||phase==='once',holdFrame=sequence||once;
   const first=settings.quality==='ultra'?(MOTION_ULTRA[scene.id]?.[settings.tone]||scene.motion?.[settings.tone]):scene.motion?.[settings.tone],idle=settings.quality==='ultra'?(scene.idleMotionUltra?.[settings.tone]||scene.idleMotion?.[settings.tone]):scene.idleMotion?.[settings.tone],url=settings.motion==='dynamic'&&(settings.material!=='native'||settings.reading==='admire')?(phase==='idle'?(idle||first):first):null;
-  return{url,scene,phase,sequence,once,holdFrame,eligible:Boolean(url&&artworkUrl===scene.images[settings.tone]&&settings.reading!=='focus'&&!document.hidden&&!reduced.matches)};
+  return{url,scene,phase,sequence,once,holdFrame,eligible:Boolean(url&&artworkUrl===scene.images[settings.tone]&&settings.reading!=='focus'&&!document.hidden&&!reduced.matches&&!document.documentElement.hasAttribute('data-si-opening-active'))};
  }
  function pause(show=false){video.pause();video.dataset.playing=String(show);}
  function hold(){pause(true);layer.dataset.motionState=finished?'held':'paused';}
