@@ -6,7 +6,7 @@ html[data-si-native] body{background:transparent!important;isolation:isolate}
 #endfield-ritual-skin .ritual-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
 #endfield-ritual-skin .ritual-motion{opacity:0;transition:opacity .18s}#endfield-ritual-skin .ritual-motion[data-playing="true"]{opacity:1}
 .ritual-edge-glass{position:absolute;inset:0;pointer-events:none;background:linear-gradient(130deg,var(--surface-soft),transparent 25%,transparent 75%,var(--surface-soft));backdrop-filter:blur(14px) saturate(1.2);mask-image:linear-gradient(90deg,#000,transparent 6%,transparent 94%,#000),linear-gradient(180deg,#000,transparent 8%,transparent 94%,#000);mask-composite:add}
-.ritual-reading-light{position:absolute;pointer-events:none;background:var(--paper);backdrop-filter:blur(3px);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 87%,transparent),linear-gradient(180deg,transparent,#000 24px,#000 calc(100% - 28px),transparent);mask-composite:intersect}
+.ritual-reading-light{position:absolute;pointer-events:none;background:var(--paper);backdrop-filter:blur(3px);mask-image:linear-gradient(90deg,transparent,#000 var(--si-veil-feather-left,48px),#000 calc(100% - var(--si-veil-feather-right,48px)),transparent),linear-gradient(180deg,transparent,#000 24px,#000 calc(100% - 28px),transparent);mask-composite:intersect}
 [data-ritual-reading="focus"] .ritual-reading-light{background:var(--paper-focus);backdrop-filter:blur(16px)}
 html[data-si-native]:has([data-content-phase="hero"]) .ritual-reading-light{opacity:0}
 [data-si-native] [data-si-surface="sidebar-column"]{position:relative;isolation:isolate;background:transparent!important;border-color:transparent!important;overflow:visible}

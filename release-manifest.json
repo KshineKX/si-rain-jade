@@ -1,20 +1,30 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0-beta.1",
   "files": [
     {
       "path": "CHANGELOG.md",
-      "bytes": 512,
-      "sha256": "ea3e24ea20d5130750e25da84bf436c6c946ce521e68d3e478703f5a8d1f1478"
+      "bytes": 1022,
+      "sha256": "870787fd79a767e10b8e2b8bfc82802dafcc48e6d3f2b17c6a0530a485a6c843"
     },
     {
       "path": "docs/COMPATIBILITY.md",
-      "bytes": 1329,
-      "sha256": "fe75ddb04f60cc9beff59ec2db96ca5158f6ac2da98ba1b2b1cc321de8b81bd8"
+      "bytes": 2359,
+      "sha256": "ad8778986e86aac77e9a88d89434c3c531f06b4acaf9b1f3d10000fbc1f340c0"
     },
     {
       "path": "docs/USAGE.md",
-      "bytes": 3900,
-      "sha256": "2bbfcec8bd5bc5a5e4fb664e6b291264d07fbb17349fdc7fabbc8106e4de1cf7"
+      "bytes": 4385,
+      "sha256": "be4222f6306a69c51fd8a73dbb7e052db700fd3416b884d85091199c7f429fc3"
+    },
+    {
+      "path": "extras/quota-widget/README.md",
+      "bytes": 1152,
+      "sha256": "c5ead6287116bf8d67061604f66c65cf59bd290c7920b1432b6ae6ad991753fc"
+    },
+    {
+      "path": "extras/quota-widget/si-avatar.png",
+      "bytes": 1620257,
+      "sha256": "6bbd7a838f74f3e29f6f665d3be8486c2a247583c16704b7db5e687bb464a457"
     },
     {
       "path": "Install.cmd",
@@ -28,13 +38,13 @@
     },
     {
       "path": "NOTICE.md",
-      "bytes": 1657,
-      "sha256": "a981559e8502b7d42cf62ff089985e8b7a41a5bbb74b308660f227ac9eb63960"
+      "bytes": 2166,
+      "sha256": "b1d7cbd30b361bdef0787d9d74257b721510b051d0ad94655ef14d40638e5297"
     },
     {
       "path": "package.json",
-      "bytes": 274,
-      "sha256": "6ab14607e9bc324372f23690a5e7c9f1c99725f74df947b62e58cb9fbca47c1b"
+      "bytes": 281,
+      "sha256": "038dc34b4e4a02feb4ddf47bdd0c6b9555c8170af04e924b79c01bc959469736"
     },
     {
       "path": "packages/skin/assets/onsen-idle-standard-color-v6.mp4",
@@ -203,13 +213,13 @@
     },
     {
       "path": "packages/skin/docs/OPENING.md",
-      "bytes": 1727,
-      "sha256": "0ae9666e6222a0a4684f0ba285d56b851f78df7876e6c3049a986d97c8483344"
+      "bytes": 1856,
+      "sha256": "c61be87328d38fb73a1028a6e0936b9d9c0765b12cda97eed66fa8834878acb9"
     },
     {
       "path": "packages/skin/docs/PROVENANCE.md",
-      "bytes": 1109,
-      "sha256": "d279cf32831c27e4daeda4ce02e332c038abf29bd0b1136d359db60e1608033b"
+      "bytes": 1490,
+      "sha256": "0a919e497fa8069fa814b43355bcc7b4e1c58e2eca4de831ed40d12a61882703"
     },
     {
       "path": "packages/skin/docs/THIRD-PARTY.md",
@@ -218,8 +228,8 @@
     },
     {
       "path": "packages/skin/lib/client.js",
-      "bytes": 77612,
-      "sha256": "df8f0d45f3174045854b2eb9c9783028a019ecf739c04a944d2d99ee8263d390"
+      "bytes": 84131,
+      "sha256": "9f36569fff69ab88e4bfa7e5fe9e307e73764b2fbc86de99694417e30c8acf18"
     },
     {
       "path": "packages/skin/lib/index.js",
@@ -238,23 +248,28 @@
     },
     {
       "path": "packages/skin/native-client.js",
-      "bytes": 17806,
-      "sha256": "e9eddc3fbd28a36246c6a38246030fc94f60086691b0a7ec85467313c2799519"
+      "bytes": 17389,
+      "sha256": "4e34d32f7cc242628fb5944ebafb916929e6058c2556204025b24fefa27fddb0"
     },
     {
       "path": "packages/skin/native.css",
-      "bytes": 16609,
-      "sha256": "c6091d40c845d615cf7f8eeef7a542517b991f5b6bb312865167e4d8663c6d55"
+      "bytes": 16681,
+      "sha256": "69707367f2b2f8919d30aaa7da82c11c734772859e608e1a15e1cf94dbcb47b6"
     },
     {
       "path": "packages/skin/package.json",
-      "bytes": 478,
-      "sha256": "27ac77fef07eb495901a8d15fdce2bbdbb9feb5b85c0cfebfd2dcf9cdfc7d03d"
+      "bytes": 485,
+      "sha256": "cdf645a03120c451d7accecdf8b97e84324e85e3c7023d3ea6b54de10fb51a45"
+    },
+    {
+      "path": "packages/skin/src/host-adapter.js",
+      "bytes": 3850,
+      "sha256": "4299e4f106d6cc71972fdda39a2d9014973b3587d38f44a9f609407677f7b02c"
     },
     {
       "path": "packages/skin/src/loader.js",
-      "bytes": 6536,
-      "sha256": "17cc97812c07abca3442cdb75a807b9e7d2f53517098f1f41cddc4b0f629cfa5"
+      "bytes": 6588,
+      "sha256": "12d140a68d8195f69cc628bfc372c1f894abcae732703eb34e617ba8c46c2376"
     },
     {
       "path": "packages/skin/src/materials.css",
@@ -263,8 +278,8 @@
     },
     {
       "path": "packages/skin/src/motion.js",
-      "bytes": 5143,
-      "sha256": "6ce8a56ff2a4c519e0deda3f886461dfa96538c418d55de557300b36b6f6732f"
+      "bytes": 5413,
+      "sha256": "a7a50690a6ec38bd732f374cb810be569f0a9bfd4e8bc769d6e5541bc345e3d0"
     },
     {
       "path": "packages/skin/src/opening.js",
@@ -273,13 +288,23 @@
     },
     {
       "path": "packages/skin/src/pinned-entry.js",
-      "bytes": 6703,
-      "sha256": "13e59846ec9714f43202d54a3cc402e88a4a52bd62f4657b374a421f33f239ea"
+      "bytes": 6816,
+      "sha256": "ef456fcfd4b92b5b5feb3d25e0c6524267a0f4bb9d28de176b495bf21dc0636d"
+    },
+    {
+      "path": "packages/skin/src/plugin-entry.js",
+      "bytes": 1183,
+      "sha256": "84c8eea85a20f39803268d6eae6f1bde23e65c8cc150926d00fd3e2d43c973eb"
     },
     {
       "path": "packages/skin/src/scenes.js",
       "bytes": 5182,
       "sha256": "ac486e6b35e616ffe55b91d7ea927f4d373ef6c95da48c0fc0cb6e06bb1a625e"
+    },
+    {
+      "path": "packages/skin/src/theme-bridge.js",
+      "bytes": 1393,
+      "sha256": "0a938c8a29a84cfeb9f2ab90df6ec8149616ee9f26610b6c3cf473c380d3133d"
     },
     {
       "path": "packages/skin/src/tokens.css",
@@ -288,8 +313,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4926,
-      "sha256": "a39a89883775f7fcf2511621cb13170adfd3d8fe83cce6d1ae48a3e0d649afb0"
+      "bytes": 5943,
+      "sha256": "a17314eb4b628991e7a32a4ff602ddeeb169273225ba4c405d2faf413d369a29"
     },
     {
       "path": "Rollback.cmd",
@@ -317,14 +342,19 @@
       "sha256": "6a334016598619a32b087a9a06591f37012d530bcc9bd06639944d174a74b144"
     },
     {
+      "path": "test/theme-bridge.test.mjs",
+      "bytes": 1976,
+      "sha256": "2a62d0db1b47b71c6a53aafad3a9dc325d2127f65e5ab055d1035bb7cf1c4cd9"
+    },
+    {
       "path": "test/upgrade.test.mjs",
       "bytes": 5497,
       "sha256": "2cd1859814316ac58866b470c53831668742e0ac3a0d774e1d5f80d19d2644bb"
     },
     {
       "path": "tools/build.mjs",
-      "bytes": 2285,
-      "sha256": "a7ceaa9dcad78ead06cee8a33a34b3aad5f1cbcea8bb33804efcce8a19ecb839"
+      "bytes": 2444,
+      "sha256": "6a35757c2c56615d4cdfd8e8512bcf1e33f624b050dde11ffd0b201d19946996"
     },
     {
       "path": "tools/manage.mjs",

@@ -8,7 +8,7 @@ const ENUMS={opening:['on','off'],tone:['light','dark'],reading:['normal','focus
 const DEFAULTS={opening:'on',tone:'dark',reading:'normal',palette:'jade',material:'liquid',motion:'dynamic',quality:'ultra',scene:'lotus',normalFog:0,focusFog:100};
 export function sanitize(value={}){const safe={...DEFAULTS};for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(value?.[key]))safe[key]=value[key];for(const key of ['normalFog','focusFog'])if(typeof value?.[key]==='number'&&Number.isFinite(value[key]))safe[key]=Math.round(Math.max(0,Math.min(100,value[key])));return safe}
 export function readingFog(percent){const p=Math.max(0,Math.min(100,Number(percent)||0));return p===0?{fill:'transparent',filter:'none'}:p<=50?{fill:'color-mix(in srgb, transparent '+(100-p*2)+'%, var(--paper) '+p*2+'%)',filter:'blur('+(3*p/50)+'px)'}:{fill:'color-mix(in srgb, var(--paper) '+(200-p*2)+'%, var(--paper-focus) '+(p*2-100)+'%)',filter:'blur('+(3+13*(p-50)/50)+'px)'};}
-export function mount(root=document.documentElement,{storage=localStorage}={}){
+export function mount(root=document.documentElement,{storage=localStorage,layerParent=document.body,native=false}={}){
  const current=document.getElementById(ID);if(current)return current.controller;
  const ownAttrs=['data-ritual-tone','data-ritual-reading','data-ritual-palette','data-ritual-material','data-ritual-fog'];
  const before=ownAttrs.map(name=>[name,root.getAttribute(name)]);
@@ -39,7 +39,7 @@ export function mount(root=document.documentElement,{storage=localStorage}={}){
  }
  const veil=layer.querySelector('.ritual-reading-light'),flow=document.querySelector('.message-column'),scroll=document.querySelector('[data-conversation-scroll]');
  function syncVeil(){if(!flow||!scroll)return;const box=flow.getBoundingClientRect(),area=scroll.getBoundingClientRect(),bleed=innerWidth<800?24:72;Object.assign(veil.style,{left:`${box.left-bleed}px`,width:`${box.width+bleed*2}px`,top:`${area.top-26}px`,height:`${area.height+95}px`})}
- const observer=new ResizeObserver(syncVeil);if(flow)observer.observe(flow);if(scroll)observer.observe(scroll);
+ const observer=native?null:new ResizeObserver(syncVeil);if(flow)observer?.observe(flow);if(scroll)observer?.observe(scroll);
  function update(next={}){
   for(const key of Object.keys(ENUMS))if(ENUMS[key].includes(next[key]))settings[key]=next[key];
   for(const key of ['normalFog','focusFog'])if(typeof next[key]==='number'&&Number.isFinite(next[key]))settings[key]=Math.round(Math.max(0,Math.min(100,next[key])));
@@ -49,6 +49,6 @@ export function mount(root=document.documentElement,{storage=localStorage}={}){
   syncScene();try{storage.setItem(KEY,JSON.stringify({...settings,motionSchema:1,schema:2,readingSchema:1,fogSchema:1}))}catch{}
   opening?.sync();document.dispatchEvent(new CustomEvent('ritual:change',{detail:{...settings}}));
  }
- const controller={update,replayOpening(){return opening.play(true)},get opening(){return {available:opening?.available||false,state:opening?.state||'idle',variant:opening?.variant||'',handoff:opening?.handoff||''}},get settings(){return {...settings}},destroy(){disposed=true;ticket++;opening?.destroy();motion.destroy();observer.disconnect();layer.remove();for(const[name,value]of before)value===null?root.removeAttribute(name):root.setAttribute(name,value)}};
- layer.controller=controller;update();document.body.prepend(layer);opening=createOpening(layer,()=>({settings,scene:resolveScene(settings.scene),artworkUrl:artwork.src}),{onActive:()=>motion.sync()});queueMicrotask(()=>{if(!disposed)void opening.play(false)});syncVeil();return controller;
+ const controller={update,replayOpening(){return opening.play(true)},get opening(){return {available:opening?.available||false,state:opening?.state||'idle',variant:opening?.variant||'',handoff:opening?.handoff||''}},get settings(){return {...settings}},destroy(){disposed=true;ticket++;opening?.destroy();motion.destroy();observer?.disconnect();layer.remove();for(const[name,value]of before)value===null?root.removeAttribute(name):root.setAttribute(name,value)}};
+ layer.controller=controller;update();layerParent.prepend(layer);opening=createOpening(layer,()=>({settings,scene:resolveScene(settings.scene),artworkUrl:artwork.src}),{onActive:()=>motion.sync()});queueMicrotask(()=>{if(!disposed)void opening.play(false)});syncVeil();return controller;
 }

@@ -44,7 +44,7 @@ export function mountSiPinnedEntry(ctx,options={}){
  const schedule=()=>{if(!disposed&&!frame)frame=requestAnimationFrame(()=>{frame=0;refresh();});};
  const resize=new ResizeObserver(schedule);
  function refresh(){
-  const slot=document.querySelector('[data-slot="sidebar"]'),sidebar=slot?.firstElementChild;
+  const sidebar=options.adapter?.snapshot.sidebar||document.querySelector('[data-slot="sidebar"]')?.firstElementChild;
   // _newSession is the current official module suffix; brand carries the same aria-label.
   let region=sidebar?.querySelector('[data-slot="sidebar.workspaces"]');
   if(region){while(region.parentElement&&region.parentElement!==sidebar)region=region.parentElement;if(region.parentElement===sidebar&&entry.nextElementSibling!==region)sidebar.insertBefore(entry,region);}
@@ -57,8 +57,8 @@ export function mountSiPinnedEntry(ctx,options={}){
  }
  entry.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();const target=resolve();if(!target.id){refresh();return;}try{ui.openSession(target.id);refresh();}catch(error){subtitle.textContent='暂时未能打开';options.onError?.(error);}});
  const stops=[sessions.list.subscribe(schedule),workspaces.list.subscribe(schedule)];if(ui.selection?.subscribe)stops.push(ui.selection.subscribe(schedule));
- const observer=new MutationObserver(records=>{if(records.every(r=>r.target.closest?.('#si-pinned-entry')))return;schedule();});observer.observe(document.body,{childList:true,subtree:true});refresh();
- return()=>{disposed=true;if(frame)cancelAnimationFrame(frame);observer.disconnect();resize.disconnect();for(const stop of stops)stop();entry.remove();style.remove();};
+ const observer=options.adapter?null:new MutationObserver(records=>{if(records.every(r=>r.target.closest?.('#si-pinned-entry')))return;schedule();});observer?.observe(document.body,{childList:true,subtree:true});const stopHost=options.adapter?.subscribe(schedule);refresh();
+ return()=>{disposed=true;if(frame)cancelAnimationFrame(frame);observer?.disconnect();stopHost?.();resize.disconnect();for(const stop of stops)stop();entry.remove();style.remove();};
 }
 
 // Context injection waits for the official navigation service instead of assuming load order.

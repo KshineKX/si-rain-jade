@@ -4,6 +4,10 @@
 
 以《明日方舟：终末地》角色「祀」为主题，将七组场景、动态壁纸与柔和玻璃材质融入聊天界面，在日常阅读、专注工作与纯画面观赏之间切换。
 
+**维护预览：[下载 0.3.0-beta.1](https://github.com/KshineKX/si-rain-jade/releases/download/v0.3.0-beta.1/Si-Rain-Jade-0.3.0-beta.1.zip)** · [Beta 更新说明](https://github.com/KshineKX/si-rain-jade/releases/tag/v0.3.0-beta.1)
+
+本轮主要调整宽屏阅读、主题挂载与资源加载，适合愿意试用维护版的用户。日常使用可继续选择下方稳定版。
+
 **[下载 0.2.0](https://github.com/KshineKX/si-rain-jade/releases/download/v0.2.0/Si-Rain-Jade-0.2.0.zip)** · [更新说明与文件校验](https://github.com/KshineKX/si-rain-jade/releases/tag/v0.2.0) · [历史版本](https://github.com/KshineKX/si-rain-jade/releases)
 
 ## 预览
@@ -26,6 +30,9 @@
 
 ## 功能
 
+- **宽屏阅读**：阅读衬底跟随 DSH 原生正文宽度，调整窗口或侧栏时自动定位。
+- **主题适配**：使用宿主插件接口管理视觉挂载和主题层，减少流式内容更新时的重复扫描。
+- **按需播放**：专注、静态和减少动态效果等条件下，不主动为新场景加载视频。
 - **开屏动画**：进入画境前呈现水墨开场，支持关闭、重播、跳过与 Esc；根据当前壁纸和外观自然收尾。
 - **七组场景**：雨声里的片刻、窗榻听雨、铺卷小憩、墨境桥行、掌柜闲时、祀的鬼画符、雪庭温泉。
 - **三档显示**：默认保留日常聊天；专注加强阅读衬底并暂停动态；观赏隐藏界面，展示纯画面。
@@ -76,4 +83,6 @@
 
 本项目为非官方同人作品。代码采用 [MIT License](LICENSE)；角色、美术、开屏片段与商标权利独立于代码许可。上游项目及许可见 [NOTICE](NOTICE.md) 和[来源说明](packages/skin/docs/PROVENANCE.md)。
 
-截图中的额度挂件由独立插件 [DeepSeek Balance Whale Widget](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget) 提供，不包含在本皮肤中；使用自定义角色图请通过该插件的角色图库导入，泡泡图库为另一项功能。
+截图中的额度挂件由独立插件 [DeepSeek Balance Whale Widget](https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget) 提供，需另行安装。包内附[小祀透明头像和导入说明](extras/quota-widget/README.md)，也可[单独下载 PNG](https://github.com/KshineKX/si-rain-jade/releases/download/v0.3.0-beta.1/si-avatar.png)，在挂件的角色图库中选用；不会自动修改账户或图库，泡泡图库为另一项功能。
+
+<img src="extras/quota-widget/si-avatar.png" alt="可选的小祀透明头像" width="160">
