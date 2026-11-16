@@ -9,13 +9,13 @@ html[data-si-native] body{background:transparent!important;isolation:isolate}
 .ritual-reading-light{position:absolute;pointer-events:none;background:var(--paper);backdrop-filter:blur(3px);mask-image:linear-gradient(90deg,transparent,#000 var(--si-veil-feather-left,48px),#000 calc(100% - var(--si-veil-feather-right,48px)),transparent),linear-gradient(180deg,transparent,#000 24px,#000 calc(100% - 28px),transparent);mask-composite:intersect}
 [data-ritual-reading="focus"] .ritual-reading-light{background:var(--paper-focus);backdrop-filter:blur(16px)}
 html[data-si-native]:has([data-content-phase="hero"]) .ritual-reading-light{opacity:0}
-[data-si-native] [data-si-surface="sidebar-column"]{position:relative;isolation:isolate;background:transparent!important;border-color:transparent!important;overflow:visible}
-[data-si-native] [data-si-surface="sidebar-column"]::before{content:"";position:absolute;inset:0 -42px 0 0;z-index:-1;pointer-events:none;background:var(--sidebar-fill,var(--surface-deep));backdrop-filter:var(--sidebar-filter);mask-image:linear-gradient(90deg,#000 0%,#000 73%,#000b 85%,transparent 100%)}
+[data-si-native] [data-si-surface="sidebar-column"]{position:relative;isolation:isolate;background:transparent!important;border-color:transparent!important}
+[data-si-native] [data-si-surface="sidebar-column"]::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:var(--sidebar-fill,var(--surface-deep));backdrop-filter:var(--sidebar-filter);mask-image:linear-gradient(90deg,#000 0%,#000 73%,#000b 85%,transparent 100%)}
 [data-si-native] [data-si-surface="sidebar"]{background:transparent!important;color:var(--ink)!important;border-right-color:transparent!important;box-shadow:none!important}
 [data-si-native] [data-si-surface="sidebar"] :is(button,a,[role="treeitem"]){color:var(--ink)!important}
 [data-si-native] [data-si-surface="sidebar"] [aria-selected="true"]{background:var(--active-fill)!important;border-radius:10px}
-[data-si-native] [data-si-surface="sidebar"] button[class$="_newSession"]{background:var(--surface-fill)!important;border-color:var(--line)!important;box-shadow:var(--surface-shadow);backdrop-filter:var(--surface-filter)}
-[data-si-native] [data-slot="sidebar.workspaces"] [class$="_fade"]{background:linear-gradient(transparent,var(--surface-deep))!important}
+[data-si-native] [data-si-surface="new-session"]{background:var(--surface-fill)!important;border-color:var(--line)!important;box-shadow:var(--surface-shadow);backdrop-filter:var(--surface-filter)}
+[data-si-native] [data-si-surface="sidebar-fade"]{background:linear-gradient(transparent,var(--surface-deep))!important}
 [data-si-native] [data-si-surface="header"]{position:relative;isolation:isolate;background:transparent!important;color:var(--ink)!important;backdrop-filter:none!important;border-color:transparent!important;box-shadow:none}
 [data-si-native] [data-si-surface="header"] :is(button,a){color:var(--ink)!important}
 [data-si-native] [data-si-surface="composer"]{position:relative;isolation:isolate;background:var(--surface-fill)!important;color:var(--ink)!important;border:1px solid var(--line)!important;border-radius:22px!important;box-shadow:var(--surface-shadow)!important;backdrop-filter:var(--surface-filter)}
@@ -106,3 +106,5 @@ html[data-si-gallery-tools="hidden"] #si-native-dock{opacity:0;visibility:hidden
 .si-opening-credit{position:absolute;z-index:3;left:max(16px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom));box-sizing:border-box;width:max-content;max-width:min(920px,calc(100% - 32px));padding:7px 10px;border:1px solid #ffffff32;border-radius:7px;background:#10271ec9;backdrop-filter:blur(10px);color:#fff;font:clamp(10px,.8vw,12px)/1.55 system-ui;white-space:pre-line;overflow-wrap:anywhere;word-break:break-word;text-shadow:0 1px 3px #0008;pointer-events:none}
 .si-opening-replay{border:1px solid var(--line);border-radius:9px;background:var(--surface-fill);padding:7px 12px;color:var(--ink);font:inherit;cursor:pointer}.si-opening-replay:disabled{opacity:.5;cursor:default}
 @media(prefers-reduced-motion:reduce){#si-opening-overlay,#si-opening-overlay .si-opening-video,#si-opening-overlay .si-opening-target{transition:none!important}}
+
+#si-native-dock[hidden]{display:none!important}

@@ -1,25 +1,6 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import {createThemeBridge} from '../packages/skin/src/theme-bridge.js';
-
-function fixture(){
- const listeners=new Set(),layers=new Map([['another-plugin',{other:true}]]);let preference='system';
- const snapshot=()=>({preference,active:{colorScheme:preference==='dark'?'dark':'light'}});
- const emit=()=>{for(const listener of listeners)listener(snapshot())};
- const theme={getTheme:snapshot,setTheme(value){preference=value;emit()},overrideTokens(id,tokens){for(const value of Object.values(tokens)){assert.equal(typeof value.light,'string');assert.equal(typeof value.dark,'string');}layers.set(id,tokens);emit();return()=>{layers.delete(id);emit()}}};
- const ctx={get:()=>theme,on(name,fn){assert.equal(name,'theme/change');listeners.add(fn);return()=>listeners.delete(fn)}};
- const settings={tone:'dark'},external=[];const bridge=createThemeBridge(ctx,()=>settings,tone=>{external.push(tone);settings.tone=tone});
- return{theme,bridge,layers,listeners,settings,external};
-}
-
-test('removing an owned theme layer restores the prior native preference and preserves other plugins',()=>{
- const f=fixture();f.bridge.sync();assert.equal(f.theme.getTheme().preference,'dark');f.bridge.dispose();assert.equal(f.theme.getTheme().preference,'system');assert(f.layers.has('another-plugin'));assert(!f.layers.has('dsh-si-rain-jade'));assert.equal(f.listeners.size,0);f.bridge.dispose();
-});
-
-test('native appearance changes propagate without overwriting a later user choice on removal',()=>{
- const f=fixture();f.bridge.sync();f.theme.setTheme('light');assert.deepEqual(f.external,['light']);f.bridge.sync();f.bridge.dispose();assert.equal(f.theme.getTheme().preference,'light');
-});
-
-test('missing theme capability leaves the native service untouched',()=>{
- let touched=false;assert.equal(createThemeBridge({get:()=>({setTheme(){touched=true}})},()=>({tone:'dark'}),()=>{}),null);assert.equal(touched,false);
-});
+import test from'node:test';import assert from'node:assert/strict';import{createThemeBridge}from'../packages/skin/src/theme-bridge.js';
+function fixture(){const listeners=new Set(),layers=new Map([['another-plugin',{}]]),attrs=new Map(),styles=new Map();let preference='system',calls=0;const snap=()=>({preference,active:{colorScheme:preference==='dark'?'dark':'light'}}),emit=()=>{for(const fn of listeners)fn(snap())};const theme={getTheme:snap,setTheme(v){calls++;preference=v;emit()},overrideTokens(id,tokens){for(const v of Object.values(tokens)){assert.equal(typeof v.light,'string');assert.equal(typeof v.dark,'string')}layers.set(id,tokens);emit();return()=>{layers.delete(id);emit()}}};const doc={body:{setAttribute:(k,v)=>attrs.set(k,v),removeAttribute:k=>attrs.delete(k)},documentElement:{style:{setProperty:(k,v)=>styles.set(k,v)}}},ctx={get:()=>theme,on(name,fn){listeners.add(fn);return()=>listeners.delete(fn)}};const settings={tone:'dark'},external=[],bridge=createThemeBridge(ctx,()=>settings,t=>{external.push(t);settings.tone=t},{document:doc});return{theme,bridge,layers,listeners,settings,external,attrs,styles,get calls(){return calls}};}
+test('skin appearance does not persist a host preference even if not disposed',()=>{const f=fixture();f.bridge.sync();assert.equal(f.theme.getTheme().preference,'system');assert.equal(f.calls,0);assert(f.attrs.has('data-ds-dark-theme'));});
+test('removal restores native appearance and preserves other token layers',()=>{const f=fixture();f.bridge.sync();f.bridge.dispose();assert.equal(f.theme.getTheme().preference,'system');assert.equal(f.calls,0);assert(!f.attrs.has('data-ds-dark-theme'));assert(f.layers.has('another-plugin'));assert.equal(f.listeners.size,0);f.bridge.dispose();});
+test('native changes propagate but unrelated token publications do not reset skin tone',()=>{const f=fixture();f.bridge.sync();f.theme.overrideTokens('other',{x:{light:'x',dark:'y'}});assert.equal(f.settings.tone,'dark');assert.equal(f.external.length,0);f.theme.setTheme('dark');f.theme.setTheme('light');assert.equal(f.settings.tone,'light');const before=f.calls;f.bridge.dispose();assert.equal(f.calls,before);});
+test('missing token capability is a no-op',()=>assert.equal(createThemeBridge({get:()=>({})},()=>({tone:'dark'}),()=>{}),null));

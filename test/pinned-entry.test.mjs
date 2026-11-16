@@ -6,3 +6,5 @@ test('missing or archived explicitly configured ID never falls back to another t
 test('unloaded workspace membership disables resolution without throwing',()=>{const result=resolve({byId:{}},{items:[{title:'祀 · 画境'}]});assert.equal(result.id,null);assert.equal(result.reason,'members-unavailable');});
 test('explicitly named empty session can be opened without sending a model message',()=>{assert.equal(resolve({byId:{a:{id:'a',title:'祀 · 管理员的画境会话',blank:true}}},{items:[]}).id,'a');});
 test('unnamed blank sessions are never chosen by workspace fallback',()=>{assert.equal(resolve({byId:{a:{id:'a',title:'',blank:true}}},{items:[{title:'祀 · 画境',sessionIds:['a']}]}).id,null);});
+
+test('a session with only the public displayTitle still resolves uniquely',()=>assert.equal(resolve({byId:{a:{id:'a',displayTitle:'祀 · 管理员的画境会话'}}},{items:[]}).id,'a'));

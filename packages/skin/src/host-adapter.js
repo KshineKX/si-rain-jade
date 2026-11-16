@@ -1,3 +1,4 @@
+import {HOST_CONTRACT} from './host-contract.js';
 // DSH DOM compatibility is confined here. Slots/theme services own registration.
 const SI_OWN='#si-plugin-host,#si-native-dock,#si-native-panel,#endfield-ritual-skin,#si-opening-overlay,#si-pinned-entry';
 export function createHostAdapter(doc=document){
@@ -6,18 +7,17 @@ export function createHostAdapter(doc=document){
  const stats={structuralScans:0,incrementalScans:0,ignoredMessageMutations:0,notifications:0};
  function read(){
   stats.structuralScans++;
-  const slot=name=>doc.querySelector('[data-slot="'+name+'"]');
-  const root=slot('root'),main=slot('main'),sidebarSlot=slot('sidebar'),sidebar=rendered(sidebarSlot),conversation=rendered(slot('main.conversation'));
-  const scroll=conversation?.querySelector('[data-conversation-scroll]'),content=conversation?.querySelector('[data-conversation-content]');
+  const q=HOST_CONTRACT.selectors,root=doc.querySelector(q.root),main=doc.querySelector(q.main),sidebarSlot=doc.querySelector(q.sidebar),sidebar=rendered(sidebarSlot),conversation=main?.parentElement.hasAttribute('data-global-panel')?null:rendered(doc.querySelector(q.conversation));
+  const scroll=conversation?.querySelector(q.scroll),content=conversation?.querySelector(q.content);
   const compatible=Boolean(root&&main&&root.contains(main)&&sidebar&&(!conversation||scroll&&content));
-  return{compatible,root:rendered(root),rootParent:root?.parentElement,main:main?.parentElement,sidebar,sidebarColumn:sidebarSlot?.parentElement,conversation,header:rendered(slot('conversation.header')),scroll,content,flow:scroll?.querySelector('[data-chat-flow],.message-column'),workspace:sidebar?.querySelector('[data-slot="sidebar.workspaces"]'),composers:conversation?[...conversation.querySelectorAll('[data-composer-card]')]:[],seats:conversation?[...conversation.querySelectorAll('[data-composer-seat]')]:[]};
+  return{compatible,newSession:sidebar?.querySelector(HOST_CONTRACT.decorations.newSession),sidebarFades:sidebar?[...sidebar.querySelectorAll(HOST_CONTRACT.decorations.sidebarFades)]:[],missing:compatible?[]:[...(!root?['root']:[]),...(!main?['main']:[]),...(!sidebar?['sidebar']:[]),...(conversation&&!scroll?['scroll']:[]),...(conversation&&!content?['content']:[])],root:rendered(root),rootParent:root?.parentElement,main:main?.parentElement,sidebar,sidebarColumn:sidebarSlot?.parentElement,conversation,header:rendered(doc.querySelector(q.header)),scroll,content,flow:scroll?.querySelector(q.flow),composers:conversation?[...conversation.querySelectorAll(q.composer)]:[],seats:conversation?[...conversation.querySelectorAll(q.seat)]:[]};
  }
  function bubbleNodes(node){
   const found=[];if(node?.nodeType!==1)return found;
   // Only the bubble fallback needs a module suffix on the supported host.
-  const match=e=>e.hasAttribute('data-message-bubble')||[...e.classList].some(c=>c.endsWith('_bubble'));
+  const match=e=>e.matches(HOST_CONTRACT.decorations.messageBubbles);
   if(match(node))found.push(node);
-  for(const e of node.querySelectorAll('[data-message-bubble],[class$="_bubble"]'))if(match(e))found.push(e);
+  for(const e of node.querySelectorAll(HOST_CONTRACT.decorations.messageBubbles))if(match(e))found.push(e);
   return found;
  }
  function flush(){frame=0;if(disposed)return;const bubbles=[];
@@ -31,7 +31,7 @@ export function createHostAdapter(doc=document){
   for(const r of records){const target=r.target.nodeType===1?r.target:r.target.parentElement;
    if(target?.closest(SI_OWN))continue;
    if(r.type==='attributes'){structural=true;continue;}
-   const insideMessage=target?.closest('[data-chat-flow]'),insideComposer=target?.closest('[data-composer-card]');
+   const insideMessage=target?.closest(HOST_CONTRACT.selectors.flow),insideComposer=target?.closest(HOST_CONTRACT.selectors.composer);
    if(insideMessage||insideComposer){let changed=false;for(const e of r.addedNodes)if(e.nodeType===1&&bubbleNodes(e).length){pending.add(e);changed=true;}if(!changed)stats.ignoredMessageMutations++;continue;}
    // Ignore text-only streaming updates and inspect only actual structural nodes.
    if([...r.addedNodes,...r.removedNodes].some(e=>e.nodeType===1&&!e.matches?.(SI_OWN)))structural=true;

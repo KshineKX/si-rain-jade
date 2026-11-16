@@ -1,3 +1,7 @@
+import{atomicWrite,removeCreatedVersion}from'./file-ops.mjs';
+import{enableSkinPatch}from'./patch-profile.mjs';
+import{assertDshStopped}from'./process-guard.mjs';
+import{inspectInstalledHost}from'./check-compat.mjs';
 import{upgradeOwned,rollbackOwnedUpgrade}from'./upgrade.mjs';
 import fs from'node:fs';import path from'node:path';import os from'node:os';import{fileURLToPath}from'node:url';import{createHash}from'node:crypto';import{execFileSync}from'node:child_process';
 const project=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),name='dsh-si-rain-jade';
@@ -23,29 +27,33 @@ export function manage(action,loc,{apply=false,source=project}={}){
   for(const[file,expected]of [[manifestFile,state.afterManifest],[patchFile,state.afterPatch]])if(hash(fs.readFileSync(file))!==expected)throw Error('Profile changed since install; rollback refused to preserve unrelated edits. Backup: '+state.backup);
   if(!isOwnLink(link,state.target))throw Error('Owned link changed; preserve it.');
   for(const[file]of[[path.join(state.backup,'package.json')],[path.join(state.backup,'cordis.patch.yml')]])if(!fs.existsSync(file)||!fs.statSync(file).isFile())throw Error('Backup missing; refusing destructive rollback: '+state.backup);if(!apply)return{status:'rollback-plan',backup:state.backup};
-  fs.copyFileSync(path.join(state.backup,'package.json'),manifestFile);fs.copyFileSync(path.join(state.backup,'cordis.patch.yml'),patchFile);removeLink(link,state.target);fs.renameSync(stateFile,stateFile+'.removed-'+Date.now());return{status:'restored',backup:state.backup,settingsPreserved:true};
+  const currentManifest=fs.readFileSync(manifestFile),currentPatch=fs.readFileSync(patchFile);
+  try{atomicWrite(manifestFile,fs.readFileSync(path.join(state.backup,'package.json')));atomicWrite(patchFile,fs.readFileSync(path.join(state.backup,'cordis.patch.yml')));removeLink(link,state.target);fs.renameSync(stateFile,stateFile+'.removed-'+Date.now());}
+  catch(error){atomicWrite(manifestFile,currentManifest);atomicWrite(patchFile,currentPatch);if(!fs.existsSync(link))fs.symlinkSync(state.target,link,process.platform==='win32'?'junction':'dir');throw error;}
+  return{status:'restored',backup:state.backup,settingsPreserved:true};
  }
  const release=parseJson(fs.readFileSync(path.join(source,'release-manifest.json')));
- for(const file of release.files){const absolute=path.resolve(source,file.path);if(!absolute.startsWith(path.resolve(source)+path.sep)||hash(fs.readFileSync(absolute))!==file.sha256)throw Error('Release integrity failure: '+file.path);}
- if(fs.existsSync(stateFile)){const state=parseJson(fs.readFileSync(stateFile));if(state.version!==release.version)return upgradeOwned({loc,source,release,state,stateFile,manifestFile,patchFile,link,apply,isOwnLink,removeLink});if(hash(fs.readFileSync(manifestFile))===state.afterManifest&&hash(fs.readFileSync(patchFile))===state.afterPatch)return{status:'already-installed',version:state.version};throw Error('Existing installation changed; preserve it before upgrading');}
+ const releasePaths=new Set();for(const file of release.files){if(typeof file.path!=='string'||file.path.includes('\\')||path.posix.isAbsolute(file.path)||file.path.split('/').some(part=>!part||part==='.'||part==='..')||releasePaths.has(file.path))throw Error('Unsafe or duplicate release path');releasePaths.add(file.path);const absolute=path.resolve(source,file.path);if(!absolute.startsWith(path.resolve(source)+path.sep)||hash(fs.readFileSync(absolute))!==file.sha256)throw Error('Release integrity failure: '+file.path);}
+ if(fs.existsSync(stateFile)){const state=parseJson(fs.readFileSync(stateFile));if(state.version!==release.version)return upgradeOwned({loc,source,release,state,stateFile,manifestFile,patchFile,link,apply,isOwnLink,removeLink});const current=parseJson(fs.readFileSync(manifestFile));if(current.dependencies?.[name]!=='link:'+state.target.replaceAll('\\','/')||current.dsh?.profile?.bundles?.filter(n=>n===name).length!==1)throw Error('Owned profile entry changed; preserve it before installing');isOwnLink(link,state.target);for(const entry of release.files.filter(e=>e.path.startsWith('packages/skin/'))){const installed=path.join(state.target,entry.path.slice('packages/skin/'.length));if(!fs.existsSync(installed)||hash(fs.readFileSync(installed))!==entry.sha256)throw Error('Installed version files differ; preserve existing files and use a new version or rollback: '+entry.path);}return{status:'already-installed',version:state.version,otherProfileSettingsPreserved:true};}
  const raw=fs.readFileSync(manifestFile),patch=fs.readFileSync(patchFile),pkg=parseJson(raw);
  if(!Array.isArray(pkg.dsh?.profile?.bundles))throw Error('Unsupported DSH profile schema');
  if(fs.existsSync(link)||pkg.dependencies?.[name]||pkg.dsh.profile.bundles.includes(name))throw Error('Existing unowned Si package; no overwrite');
- const other=[...patch.toString().matchAll(/^\s*-\s*id:\s*(ui-skin-[\w-]+)\s*$/gm)].map(m=>m[1]).filter(id=>id!=='ui-skin-si-rain-jade');
+ const patchPlan=enableSkinPatch(patch.toString()),other=patchPlan.switchesOff;
  if(!apply)return{status:'install-plan',version:release.version,profile:loc.profile,switchesOff:[...new Set(other)],data:loc.data};
  const backup=path.join(loc.data,'backups',Date.now().toString()),target=path.join(loc.data,'versions',release.version,'skin');
  fs.mkdirSync(backup,{recursive:true});fs.writeFileSync(path.join(backup,'package.json'),raw);fs.writeFileSync(path.join(backup,'cordis.patch.yml'),patch);
  if(fs.existsSync(target))throw Error('Version directory already exists; preserve it');
- for(const file of release.files.filter(e=>e.path.startsWith('packages/skin/'))){const out=path.join(target,file.path.slice('packages/skin/'.length));fs.mkdirSync(path.dirname(out),{recursive:true});fs.copyFileSync(path.join(source,file.path),out);if(hash(fs.readFileSync(out))!==file.sha256)throw Error('Copy integrity failure');}
+ try{
+ for(const file of release.files.filter(e=>e.path.startsWith('packages/skin/'))){const out=path.resolve(target,file.path.slice('packages/skin/'.length));if(!out.startsWith(path.resolve(target)+path.sep))throw Error('Unsafe target path');fs.mkdirSync(path.dirname(out),{recursive:true});fs.copyFileSync(path.join(source,file.path),out);if(hash(fs.readFileSync(out))!==file.sha256)throw Error('Copy integrity failure');}
  pkg.dependencies??={};pkg.dependencies[name]='link:'+target.replaceAll('\\','/');pkg.dsh.profile.bundles.push(name);
  const nextManifest=Buffer.from(JSON.stringify(pkg,null,2)+'\n');
- const basePatch=patch.toString().replace(/^\s*\[\]\s*$/gm,'');
- const nextPatch=Buffer.from(basePatch+'\n- id: ui-skin-si-rain-jade\n  disabled: false\n'+[...new Set(other)].map(id=>'- id: '+id+'\n  disabled: true\n').join(''));
+ const nextPatch=Buffer.from(patchPlan.patch);
  fs.mkdirSync(path.dirname(link),{recursive:true});fs.symlinkSync(target,link,process.platform==='win32'?'junction':'dir');
- try{fs.writeFileSync(manifestFile,nextManifest);fs.writeFileSync(patchFile,nextPatch);fs.writeFileSync(stateFile,JSON.stringify({version:release.version,target,backup,afterManifest:hash(nextManifest),afterPatch:hash(nextPatch)}));}
- catch(error){fs.writeFileSync(manifestFile,raw);fs.writeFileSync(patchFile,patch);removeLink(link,target);throw error;}
+ atomicWrite(manifestFile,nextManifest);atomicWrite(patchFile,nextPatch);atomicWrite(stateFile,JSON.stringify({version:release.version,target,backup,afterManifest:hash(nextManifest),afterPatch:hash(nextPatch)}));
+ }catch(error){atomicWrite(manifestFile,raw);atomicWrite(patchFile,patch);if(fs.existsSync(link))removeLink(link,target);removeCreatedVersion(target,path.join(loc.data,'versions'),release);throw error;}
  return{status:'installed',version:release.version,backup,nativeAcceptance:'pending user restart and visual acceptance'};
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
- try{const args=process.argv.slice(2),action=args.shift()||'install';if(!['install','uninstall','rollback'].includes(action))throw Error('Unknown action');const value=key=>{const n=args.indexOf(key);return n<0?undefined:args[n+1];};const home=path.resolve(value('--dsh-home')||process.env.DSH_HOME||path.join(os.homedir(),'.dsh'));const apply=args.includes('--apply');if(apply&&process.platform==='win32'){const count=execFileSync('powershell.exe',['-NoProfile','-Command',"@(Get-Process -Name 'DeepSeek Harness' -ErrorAction SilentlyContinue).Count"],{encoding:'utf8',windowsHide:true}).trim();if(Number(count)>0)throw Error('Exit DSH completely (including tray) before install/rollback. No restart is performed automatically.');}console.log(JSON.stringify(manage(action,locations(home,value('--profile')||'desktop'),{apply}),null,2));}catch(error){console.error(error.message);process.exitCode=2;}
+ try{const args=process.argv.slice(2),action=args.shift()||'install';if(!['install','uninstall','rollback'].includes(action))throw Error('Unknown action');const value=key=>{const n=args.indexOf(key);return n<0?undefined:args[n+1];};const home=path.resolve(value('--dsh-home')||process.env.DSH_HOME||path.join(os.homedir(),'.dsh'));const apply=args.includes('--apply');if(apply)assertDshStopped();if(action==='install'&&apply){const report=inspectInstalledHost({desktop:value('--desktop')||path.join(process.env.LOCALAPPDATA||path.join(os.homedir(),'AppData/Local'),'Programs/DeepSeek Harness/DeepSeek Harness.exe'),modules:value('--host-modules')});if(!report.knownVersion)throw Error('This host version has not passed the supported-version gate. Run the isolated probe and update the supported contract before installing.');if(!report.capabilitiesPresent)throw Error('Host is missing required skin APIs: '+report.checks.filter(c=>!c.passed).map(c=>c.name).join(', ')+'. Run tools/check-compat.mjs before updating. No profile files changed.');}
+console.log(JSON.stringify(manage(action,locations(home,value('--profile')||'desktop'),{apply}),null,2));}catch(error){console.error(error.message);process.exitCode=2;}
 }

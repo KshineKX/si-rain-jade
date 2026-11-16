@@ -1,0 +1,6 @@
+import test from'node:test';import assert from'node:assert/strict';import{validateProcessEvidence}from'../tools/process-guard.mjs';
+test('shutdown guard fails closed for restricted or unavailable process queries',()=>{for(const e of [{queryOk:false},{queryOk:true,appContainer:true,processIds:[],cimIds:[]}])assert.throws(()=>validateProcessEvidence(e),/Cannot verify/);});
+test('either process signal blocks installation even if the other reports empty',()=>{assert.throws(()=>validateProcessEvidence({queryOk:true,appContainer:false,selfProcessVisible:true,selfCimVisible:true,processIds:[],cimIds:[100]}),/still running/);assert.throws(()=>validateProcessEvidence({queryOk:true,appContainer:false,selfProcessVisible:true,selfCimVisible:true,processIds:[100],cimIds:[]}),/still running/);});
+test('only successful unrestricted empty queries permit installation',()=>assert.equal(validateProcessEvidence({queryOk:true,appContainer:false,selfProcessVisible:true,selfCimVisible:true,processIds:[],cimIds:[]}).clear,true));
+
+test('empty process results require positive self visibility in both queries',()=>{for(const key of ['selfProcessVisible','selfCimVisible'])assert.throws(()=>validateProcessEvidence({queryOk:true,appContainer:false,selfProcessVisible:true,selfCimVisible:true,processIds:[],cimIds:[],[key]:false}),/Cannot verify/);});

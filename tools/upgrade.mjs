@@ -1,14 +1,14 @@
+import{atomicWrite as atomic,assertRegularTarget}from'./file-ops.mjs';
 import fs from'node:fs';import path from'node:path';import{createHash,randomUUID}from'node:crypto';
 const name='dsh-si-rain-jade',hash=b=>createHash('sha256').update(b).digest('hex'),json=b=>JSON.parse(b.toString('utf8').replace(/^\uFEFF/,''));
 function inside(file,base){return path.resolve(file).startsWith(path.resolve(base)+path.sep);}
 function checkEntries(pkg,target){if(pkg.dependencies?.[name]!=='link:'+target.replaceAll('\\','/')||pkg.dsh?.profile?.bundles?.filter(n=>n===name).length!==1)throw Error('Owned dependency/bundle changed; preserve current profile.');}
-function atomic(file,data){const temporary=file+'.'+randomUUID()+'.tmp';fs.writeFileSync(temporary,data);fs.renameSync(temporary,file);}
 export function upgradeOwned({loc,source,release,state,stateFile,manifestFile,patchFile,link,apply,isOwnLink,removeLink}){
  if(!inside(state.target,path.join(loc.data,'versions'))||!isOwnLink(link,state.target))throw Error('Previous target ownership mismatch');
  const raw=fs.readFileSync(manifestFile),patch=fs.readFileSync(patchFile),pkg=json(raw);checkEntries(pkg,state.target);
  if(!apply)return{status:'upgrade-plan',from:state.version,to:release.version,preserves:'other dependencies, bundles, patches, settings and conversations'};
  const backup=path.join(loc.data,'backups','upgrade-'+Date.now()+'-'+randomUUID()),target=path.join(loc.data,'versions',release.version,'skin');
- const existing=fs.existsSync(target);if(existing&&(!fs.lstatSync(target).isDirectory()||fs.lstatSync(target).isSymbolicLink()))throw Error('New version target is not an owned regular directory; preserve it');
+ const existing=fs.existsSync(target);if(existing)assertRegularTarget(target);
  fs.mkdirSync(backup,{recursive:true});fs.writeFileSync(path.join(backup,'package.json'),raw);fs.writeFileSync(path.join(backup,'cordis.patch.yml'),patch);const oldState=fs.readFileSync(stateFile);fs.writeFileSync(path.join(backup,'previous-state.json'),oldState);
  for(const entry of release.files.filter(e=>e.path.startsWith('packages/skin/'))){const out=path.resolve(target,entry.path.slice('packages/skin/'.length));if(!inside(out,target))throw Error('Unsafe package path');if(!existing){fs.mkdirSync(path.dirname(out),{recursive:true});fs.copyFileSync(path.join(source,entry.path),out);}if(!fs.existsSync(out)||hash(fs.readFileSync(out))!==entry.sha256)throw Error('New version bytes differ; preserve existing version directory.');}
  pkg.dependencies[name]='link:'+target.replaceAll('\\','/');const next=Buffer.from(JSON.stringify(pkg,null,2)+'\n');

@@ -1,11 +1,16 @@
 {
   "name": "si-rain-jade",
-  "version": "0.3.0-beta.1",
+  "version": "0.3.1-beta.1",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node tools/build.mjs",
-    "test": "node --test test/*.test.mjs"
+    "test": "node --test test/*.test.mjs",
+    "check:compat": "node tools/check-compat.mjs",
+    "test:host": "node tools/probe-host.mjs"
   },
-  "description": "祀 · 雨荷青玉 — DeepSeek Harness 主题皮肤"
+  "description": "祀 · 雨荷青玉 — DeepSeek Harness 主题皮肤",
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
 }

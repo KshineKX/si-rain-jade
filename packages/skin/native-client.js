@@ -1,3 +1,8 @@
+import{mount}from'./src/loader.js';
+import{SCENES}from'./src/scenes.js';
+import{createThemeBridge}from'./src/theme-bridge.js';
+import{HOST_CONTRACT,inspectHostServices}from'./src/host-contract.js';
+import{siScale,siViewport,siPanelBounds}from'./src/geometry.js';
 // DSH rc.5 slots use display:contents; style the rendered children, not the slots.
 export function mountNative(ctx,{parent=document.body,adapter}){
  if(document.getElementById('si-native-dock')||document.querySelector('[data-herta-atelier]'))return()=>{};
@@ -5,9 +10,9 @@ export function mountNative(ctx,{parent=document.body,adapter}){
  const style=document.createElement('style');style.id='si-native-style';style.textContent=SI_CSS;document.head.append(style);
  const controller=mount(root,{layerParent:parent,native:true}),tagged=new Map(),viewHidden=new Map();let frame=0,disposed=false,hiddenFocus=null,viewingActive=false,galleryTimer=0;
  Object.defineProperty(controller,'hostStatus',{get:()=>({mount:'official-slot',theme:'official-token-layer',...adapter.stats})});
+ let zoomObserver=null;const zoomTargets=new Set();
  const readingBoxes=new Set(),readingResize=new ResizeObserver(()=>{if(!disposed){positionDock();positionPanel();positionVeil();}});
  const themeBridge=createThemeBridge(ctx,()=>controller.settings,tone=>controller.update({tone}));
- const stopPinned=mountSiPinnedEntry(ctx,{adapter});
  const galleryAttrs=['data-si-gallery-style','data-si-gallery-tools'].map(name=>[name,root.getAttribute(name)]);
  const viewModes=['normal','focus','admire'],viewLabels={normal:'默认',focus:'专注',admire:'观赏'};
  const svg=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
@@ -30,11 +35,27 @@ export function mountNative(ctx,{parent=document.body,adapter}){
  const openingSettings=category('开屏',icons.wallpaper,()=>controller.settings.opening==='off'?'关闭':controller.opening.available?'开启':'素材待加入');group(openingSettings,'启动时播放','opening',['on','off']);const openingReplay=document.createElement('button');openingReplay.type='button';openingReplay.className='si-opening-replay';openingReplay.textContent='重播开屏';openingReplay.addEventListener('click',()=>void controller.replayOpening());openingSettings.append(openingReplay);const openingHelp=document.createElement('p');openingHelp.className='si-scene-note';openingHelp.textContent='可用 Esc 跳过。遵循系统减弱动态设置；素材失败时直接进入界面，不改壁纸偏好。';openingSettings.append(openingHelp);
  const reading=category('阅读',icons.focus,()=>controller.settings.reading==='admire'?'观赏':(controller.settings.reading==='focus'?'专注':'默认')+' · '+(controller.settings.reading==='focus'?controller.settings.focusFog:controller.settings.normalFog)+'%');
  const fogRow=document.createElement('div');fogRow.className='si-fog-control';fogRow.innerHTML='<label for="si-reading-fog">雾层浓度 <output id="si-reading-fog-value"></output></label><input id="si-reading-fog" type="range" min="0" max="100" step="1" aria-describedby="si-reading-fog-help"><div class="si-fog-ticks"><span>0% 清晰</span><span>50% 旧默认</span><span>100% 专注</span></div><p id="si-reading-fog-help">默认预设0%，专注预设100%，分别记住调整。观赏时隐藏雾层。</p>';reading.append(fogRow);
+ const checks=category('兼容性',icons.settings,()=>HOST_CONTRACT.verifiedHosts.join(' / '));
+ const checkHelp=document.createElement('p');checkHelp.className='si-scene-note';checkHelp.textContent='检查当前接口、布局和显示状态。不读取聊天正文、账户或密钥，也不上传诊断。';checks.append(checkHelp);
+ const runCheck=document.createElement('button'),copyCheck=document.createElement('button'),checkResult=document.createElement('p');runCheck.type=copyCheck.type='button';runCheck.className=copyCheck.className='si-opening-replay';runCheck.textContent='检查兼容性';copyCheck.textContent='复制诊断';copyCheck.disabled=true;checkResult.setAttribute('role','status');let lastReport=null;
+ function compatibilityReport(){const service=inspectHostServices(ctx),state=adapter.snapshot,slots=Object.fromEntries(HOST_CONTRACT.slots.map(name=>[name,ctx.get('slots').entries(name).filter(e=>String(e.options.id||'').startsWith('si-rain-jade.')).length]));return{schema:HOST_CONTRACT.schema,skinVersion:SI_VERSION,verifiedHostVersions:HOST_CONTRACT.verifiedHosts,service,layout:{compatible:state.compatible,missing:state.missing},slots,display:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio,cssZoom:siScale(dock)},view:controller.settings.reading,mediaState:document.getElementById('endfield-ritual-skin')?.dataset.motionState};}
+ runCheck.addEventListener('click',()=>{lastReport=compatibilityReport();copyCheck.disabled=false;checkResult.textContent=lastReport.service.compatible&&lastReport.layout.compatible&&Object.values(lastReport.slots).every(n=>n===1)?'接口与当前布局检查通过。':'发现兼容性差异，可复制诊断以便排查。';});copyCheck.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(JSON.stringify(lastReport,null,2));checkResult.textContent='诊断已复制。'}catch{checkResult.textContent='复制未成功，请检查剪贴板权限。'}});checks.append(runCheck,copyCheck,checkResult);
+ Object.defineProperty(controller,'compatibilityReport',{value:compatibilityReport});
  const fogRange=fogRow.querySelector('input'),fogOutput=fogRow.querySelector('output');fogRange.addEventListener('input',()=>controller.update({[controller.settings.reading==='focus'?'focusFog':'normalFog']:Number(fogRange.value)}));
  function tag(e,role){if(!e)return;if(!tagged.has(e))tagged.set(e,e.getAttribute('data-si-surface'));if(e.getAttribute('data-si-surface')!==role)e.setAttribute('data-si-surface',role);}
  function rendered(e){return e?(getComputedStyle(e).display==='contents'?e.firstElementChild:e):null;}
- function positionDock(){const state=adapter.snapshot,header=state.header,content=state.content,area=state.conversation?.getBoundingClientRect();const edge=Math.max(header?.getBoundingClientRect().bottom||0,content?.getBoundingClientRect().top||0);dock.style.left='auto';dock.style.right=Math.max(16,innerWidth-(area?.right||innerWidth)+16)+'px';dock.style.top=Math.min(innerHeight-64,edge+12)+'px';}
- function positionPanel(){if(panel.hidden||!dock.isConnected)return;const r=dock.getBoundingClientRect();const top=Math.min(innerHeight-100,r.bottom+8);panel.style.top=top+'px';panel.style.maxHeight=Math.max(80,innerHeight-top-14)+'px';panel.style.right=Math.max(10,innerWidth-r.right)+'px';}
+ function positionDock(){
+  const state=adapter.snapshot,visible=Boolean(state.conversation);dock.hidden=!visible;
+  if(!visible){panel.hidden=true;settings.setAttribute('aria-expanded','false');return;}
+  const v=siViewport(),scale=siScale(dock),box=dock.getBoundingClientRect(),area=state.conversation.getBoundingClientRect();
+  const edge=Math.max(state.header?.getBoundingClientRect().bottom||0,state.content?.getBoundingClientRect().top||0);
+  const safe=root.hasAttribute('data-windows-titlebar')?(parseFloat(getComputedStyle(root).getPropertyValue('--dsh-windows-titlebar-height'))||48)*scale:0;
+  const right=Math.min(v.right-16*scale,area.right-16*scale),left=Math.max(v.left+8*scale,right-box.width);
+  const top=Math.min(v.bottom-box.height-8*scale,Math.max(v.top+safe+8*scale,edge+12*scale));
+  Object.assign(dock.style,{left:left/scale+'px',right:'auto',top:Math.max(v.top,top)/scale+'px'});
+ }
+ function positionPanel(){if(panel.hidden||!dock.isConnected||dock.hidden)return;const scale=siScale(panel),bounds=siPanelBounds(dock.getBoundingClientRect(),panel.getBoundingClientRect(),siViewport());Object.assign(panel.style,{left:bounds.left/scale+'px',right:'auto',top:bounds.top/scale+'px',maxHeight:bounds.maxHeight/scale+'px'});}
+
  function positionVeil(){
   const veil=document.querySelector('#endfield-ritual-skin .ritual-reading-light'),scroll=adapter.snapshot.scroll;
   const flow=adapter.snapshot.flow;
@@ -44,11 +65,11 @@ export function mountNative(ctx,{parent=document.body,adapter}){
   if(!veil)return;veil.hidden=!scroll;if(!scroll)return;
   const area=scroll.getBoundingClientRect(),box=flow?.getBoundingClientRect();
   // Match the host's actual message column, including its user-selected width.
-  const content=box?.width>0?box:area,bleed=56;
+  const scale=siScale(veil),content=box?.width>0?box:area,bleed=56*scale;
   const start=Math.max(area.left,content.left-bleed),end=Math.min(area.right,content.right+bleed);
-  Object.assign(veil.style,{left:start+'px',top:area.top+'px',width:Math.max(0,end-start)+'px',height:area.height+'px'});
-  veil.style.setProperty('--si-veil-feather-left',Math.max(0,Math.min(48,content.left-start))+'px');
-  veil.style.setProperty('--si-veil-feather-right',Math.max(0,Math.min(48,end-content.right))+'px');
+  Object.assign(veil.style,{left:start/scale+'px',top:area.top/scale+'px',width:Math.max(0,end-start)/scale+'px',height:area.height/scale+'px'});
+  veil.style.setProperty('--si-veil-feather-left',Math.max(0,Math.min(48,(content.left-start)/scale))+'px');
+  veil.style.setProperty('--si-veil-feather-right',Math.max(0,Math.min(48,(end-content.right)/scale))+'px');
  }
  function restoreViewElement(e,values){for(const[name,value]of values)value===null?e.removeAttribute(name):e.setAttribute(name,value);viewHidden.delete(e);}
  function wakeGalleryTools(){
@@ -75,17 +96,20 @@ export function mountNative(ctx,{parent=document.body,adapter}){
   }
   if(entering)wakeGalleryTools();
  }
+ function syncZoomTargets(state){if(!zoomObserver)return;const targets=new Set([root,document.body,state.root,state.rootParent].filter(Boolean));for(const e of zoomTargets)if(!targets.has(e)){zoomObserver.unobserve?.(e);zoomTargets.delete(e);}zoomObserver.disconnect();for(const e of targets)zoomObserver.observe(e,{attributes:true,attributeFilter:['style','class']});zoomTargets.clear();for(const e of targets)zoomTargets.add(e);}
  function tagNative(state=adapter.snapshot,changes={bubbles:[]}){
+  syncZoomTargets(state);
   for(const[e,value]of tagged)if(!e.isConnected){value===null?e.removeAttribute('data-si-surface'):e.setAttribute('data-si-surface',value);tagged.delete(e);}
-  for(const[e,role]of [[state.rootParent,'canvas'],[state.root,'canvas'],[state.main,'canvas'],[state.sidebarColumn,'sidebar-column'],[state.sidebar,'sidebar'],[state.conversation,'conversation'],[state.header,'header'],[state.content,'content'],[state.scroll,'scroll']])tag(e,role);
-  for(const e of state.composers)tag(e,'composer');for(const e of state.seats)tag(e,'composer-seat');for(const e of changes.bubbles)tag(e,'message-bubble');
+  for(const[e,role]of [[state.rootParent,'canvas'],[state.root,'canvas'],[state.main,'canvas'],[state.sidebarColumn,'sidebar-column'],[state.sidebar,'sidebar'],[state.newSession,'new-session'],[state.conversation,'conversation'],[state.header,'header'],[state.content,'content'],[state.scroll,'scroll']])tag(e,role);
+  for(const e of state.sidebarFades)tag(e,'sidebar-fade');for(const e of state.composers)tag(e,'composer');for(const e of state.seats)tag(e,'composer-seat');for(const e of changes.bubbles)tag(e,'message-bubble');
   positionDock();positionPanel();positionVeil();syncView();
  }
  const sceneNote=document.createElement('p');sceneNote.className='si-scene-note';sceneNote.setAttribute('role','note');wallpaper.append(sceneNote);
  function sync(){const s=controller.settings;openingReplay.disabled=!controller.opening.available;openingReplay.title=controller.opening.available?'重播开屏（Esc可跳过）':'开屏素材尚未加入，或系统已减弱动态';const fog=s.reading==='focus'?s.focusFog:s.normalFog;fogRange.value=String(fog);fogRange.disabled=s.reading==='admire';fogRange.setAttribute('aria-valuetext',fog+'%');fogOutput.value=fog+'%';fogRange.style.setProperty('--si-fog-position',fog+'%');sceneNote.textContent=SCENES[s.scene].availabilityNote||'';sceneNote.hidden=!SCENES[s.scene].singleLighting;themeBridge.sync();document.body.style.setProperty('--si-native-palette',s.tone+'-'+s.palette);tone.innerHTML=s.tone==='dark'?icons.sun:icons.moon;tone.setAttribute('aria-label',s.tone==='dark'?'切换为浅色外观':'切换为深色外观');focus.dataset.siViewMode=s.reading;const next=viewModes[(viewModes.indexOf(s.reading)+1)%viewModes.length],hint='展示模式：'+viewLabels[s.reading]+'；点击切换'+viewLabels[next]+(s.reading==='admire'?'；Esc返回默认':'');focus.title=hint;focus.setAttribute('aria-label',hint);viewStatus.textContent=viewLabels[s.reading]+'模式';syncView();for(const{b,key,value}of choices){b.setAttribute('aria-pressed',String(s[key]===value));if(key==='scene')b.querySelector('img').src=SCENES[value].images[s.tone];if(key==='motion'&&value==='dynamic'||key==='quality')b.disabled=!SCENES[s.scene].motion;}for(const s of summaries)s.el.textContent=s.current();positionVeil();}
  const unsubscribeHost=adapter.subscribe(tagNative);
  const resize=()=>{positionDock();positionPanel();positionVeil();syncView();},outside=e=>{if(!panel.hidden&&!panel.contains(e.target)&&!dock.contains(e.target)){panel.hidden=true;settings.setAttribute('aria-expanded','false');}wakeGalleryTools();},escape=e=>{if(e.key!=='Escape')return;if(!panel.hidden){panel.hidden=true;settings.setAttribute('aria-expanded','false');settings.focus();e.preventDefault();}else if(controller.settings.reading==='admire'){controller.update({reading:'normal'});focus.focus({preventScroll:true});e.preventDefault();}};
- document.addEventListener('ritual:change',sync);document.addEventListener('ritual:opening',sync);document.addEventListener('pointerdown',outside);document.addEventListener('keydown',escape);window.addEventListener('resize',resize);document.addEventListener('pointermove',wakeGalleryTools,{passive:true});document.addEventListener('focusin',wakeGalleryTools);document.addEventListener('keydown',wakeGalleryKeyboard,true);tagNative();sync();
- return()=>{disposed=true;clearTimeout(galleryTimer);for(const[name,value]of galleryAttrs)value===null?root.removeAttribute(name):root.setAttribute(name,value);document.removeEventListener('pointermove',wakeGalleryTools);document.removeEventListener('focusin',wakeGalleryTools);document.removeEventListener('keydown',wakeGalleryKeyboard,true);unsubscribeHost();stopPinned();themeBridge.dispose();readingResize.disconnect();for(const[e,values]of viewHidden)restoreViewElement(e,values);if(frame)cancelAnimationFrame(frame);for(const[e,value]of tagged)if(value===null)e.removeAttribute('data-si-surface');else e.setAttribute('data-si-surface',value);document.removeEventListener('ritual:change',sync);document.removeEventListener('ritual:opening',sync);document.removeEventListener('pointerdown',outside);document.removeEventListener('keydown',escape);window.removeEventListener('resize',resize);dock.remove();panel.remove();controller.destroy();style.remove();if(prior===null)root.removeAttribute('data-si-native');else root.setAttribute('data-si-native',prior);if(priorCaptionToken)document.body.style.setProperty('--si-native-palette',priorCaptionToken);else document.body.style.removeProperty('--si-native-palette');};
+ zoomObserver=new MutationObserver(()=>{if(!disposed&&!frame)frame=requestAnimationFrame(()=>{frame=0;if(!disposed)resize();});});syncZoomTargets(adapter.snapshot);
+ const viewport=window.visualViewport;viewport?.addEventListener('resize',resize);viewport?.addEventListener('scroll',resize);document.addEventListener('ritual:change',sync);document.addEventListener('ritual:opening',sync);document.addEventListener('pointerdown',outside);document.addEventListener('keydown',escape);window.addEventListener('resize',resize);document.addEventListener('pointermove',wakeGalleryTools,{passive:true});document.addEventListener('focusin',wakeGalleryTools);document.addEventListener('keydown',wakeGalleryKeyboard,true);tagNative();sync();
+ return()=>{disposed=true;viewport?.removeEventListener('resize',resize);viewport?.removeEventListener('scroll',resize);clearTimeout(galleryTimer);for(const[name,value]of galleryAttrs)value===null?root.removeAttribute(name):root.setAttribute(name,value);document.removeEventListener('pointermove',wakeGalleryTools);document.removeEventListener('focusin',wakeGalleryTools);document.removeEventListener('keydown',wakeGalleryKeyboard,true);unsubscribeHost();zoomObserver?.disconnect();themeBridge.dispose();readingResize.disconnect();for(const[e,values]of viewHidden)restoreViewElement(e,values);if(frame)cancelAnimationFrame(frame);for(const[e,value]of tagged)if(value===null)e.removeAttribute('data-si-surface');else e.setAttribute('data-si-surface',value);document.removeEventListener('ritual:change',sync);document.removeEventListener('ritual:opening',sync);document.removeEventListener('pointerdown',outside);document.removeEventListener('keydown',escape);window.removeEventListener('resize',resize);dock.remove();panel.remove();controller.destroy();style.remove();if(prior===null)root.removeAttribute('data-si-native');else root.setAttribute('data-si-native',prior);if(priorCaptionToken)document.body.style.setProperty('--si-native-palette',priorCaptionToken);else document.body.style.removeProperty('--si-native-palette');};
 }
 
